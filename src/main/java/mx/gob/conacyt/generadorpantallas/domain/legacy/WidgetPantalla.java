@@ -1,4 +1,4 @@
-package generadorpantallas.domain;
+package mx.gob.conacyt.generadorpantallas.domain.legacy;
 
 import java.io.Serializable;
 import javax.persistence.*;

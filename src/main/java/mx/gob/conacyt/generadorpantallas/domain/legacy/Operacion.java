@@ -1,4 +1,4 @@
-package generadorpantallas.domain;
+package mx.gob.conacyt.generadorpantallas.domain.legacy;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -8,30 +8,32 @@ import java.util.List;
 
 
 /**
- * The persistent class for the EVENTO_UI database table.
+ * The persistent class for the OPERACION database table.
  * 
  */
 @Entity
-@Table(name="EVENTO_UI")
-@NamedQuery(name="EventoUi.findAll", query="SELECT e FROM EventoUi e")
-public class EventoUi implements Serializable {
+@NamedQuery(name="Operacion.findAll", query="SELECT o FROM Operacion o")
+public class Operacion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="ID_EVENTO_UI")
-	private long idEventoUi;
+	@Column(name="ID_OPERACION")
+	private long idOperacion;
 
-	@Column(name="CVE_EVENTO_UI")
-	private String cveEventoUi;
+	@Column(name="CVE_OPERACION")
+	private String cveOperacion;
 
-	@Column(name="DESC_EVENTO_UI")
-	private String descEventoUi;
+	@Column(name="DESC_OPERACION")
+	private String descOperacion;
 
 	@Column(name="FECHA_ALTA")
 	private Timestamp fechaAlta;
 
 	@Column(name="FECHA_MODIFICACION")
 	private Timestamp fechaModificacion;
+
+	@Column(name="HABILITAR_REST")
+	private String habilitarRest;
 
 	@Column(name="IND_ESTATUS")
 	private String indEstatus;
@@ -43,46 +45,47 @@ public class EventoUi implements Serializable {
 	private BigDecimal usuarioModificacion;
 
 	//bi-directional many-to-one association to CampoWidgetEventoUi
-	@OneToMany(mappedBy="eventoUi")
+	@OneToMany(mappedBy="operacion")
 	private List<CampoWidgetEventoUi> campoWidgetEventoUis;
 
+	//bi-directional many-to-one association to CatServicio
+	@ManyToOne
+	@JoinColumn(name="ID_SERVICIO")
+	private Servicio catServicio;
+
 	//bi-directional many-to-one association to PantallaEventoUi
-	@OneToMany(mappedBy="eventoUi")
+	@OneToMany(mappedBy="operacion")
 	private List<PantallaEventoUi> pantallaEventoUis;
 
-	//bi-directional many-to-one association to SecuenciaFlujoPantalla
-	@OneToMany(mappedBy="eventoUi")
-	private List<SecuenciaFlujoPantalla> secuenciaFlujoPantallas;
-
 	//bi-directional many-to-one association to WidgetAccion
-	@OneToMany(mappedBy="eventoUi")
+	@OneToMany(mappedBy="operacion")
 	private List<WidgetAccion> widgetAccions;
 
-	public EventoUi() {
+	public Operacion() {
 	}
 
-	public long getIdEventoUi() {
-		return this.idEventoUi;
+	public long getIdOperacion() {
+		return this.idOperacion;
 	}
 
-	public void setIdEventoUi(long idEventoUi) {
-		this.idEventoUi = idEventoUi;
+	public void setIdOperacion(long idOperacion) {
+		this.idOperacion = idOperacion;
 	}
 
-	public String getCveEventoUi() {
-		return this.cveEventoUi;
+	public String getCveOperacion() {
+		return this.cveOperacion;
 	}
 
-	public void setCveEventoUi(String cveEventoUi) {
-		this.cveEventoUi = cveEventoUi;
+	public void setCveOperacion(String cveOperacion) {
+		this.cveOperacion = cveOperacion;
 	}
 
-	public String getDescEventoUi() {
-		return this.descEventoUi;
+	public String getDescOperacion() {
+		return this.descOperacion;
 	}
 
-	public void setDescEventoUi(String descEventoUi) {
-		this.descEventoUi = descEventoUi;
+	public void setDescOperacion(String descOperacion) {
+		this.descOperacion = descOperacion;
 	}
 
 	public Timestamp getFechaAlta() {
@@ -99,6 +102,14 @@ public class EventoUi implements Serializable {
 
 	public void setFechaModificacion(Timestamp fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
+	}
+
+	public String getHabilitarRest() {
+		return this.habilitarRest;
+	}
+
+	public void setHabilitarRest(String habilitarRest) {
+		this.habilitarRest = habilitarRest;
 	}
 
 	public String getIndEstatus() {
@@ -135,16 +146,24 @@ public class EventoUi implements Serializable {
 
 	public CampoWidgetEventoUi addCampoWidgetEventoUi(CampoWidgetEventoUi campoWidgetEventoUi) {
 		getCampoWidgetEventoUis().add(campoWidgetEventoUi);
-		campoWidgetEventoUi.setEventoUi(this);
+		campoWidgetEventoUi.setOperacion(this);
 
 		return campoWidgetEventoUi;
 	}
 
 	public CampoWidgetEventoUi removeCampoWidgetEventoUi(CampoWidgetEventoUi campoWidgetEventoUi) {
 		getCampoWidgetEventoUis().remove(campoWidgetEventoUi);
-		campoWidgetEventoUi.setEventoUi(null);
+		campoWidgetEventoUi.setOperacion(null);
 
 		return campoWidgetEventoUi;
+	}
+
+	public Servicio getCatServicio() {
+		return this.catServicio;
+	}
+
+	public void setCatServicio(Servicio catServicio) {
+		this.catServicio = catServicio;
 	}
 
 	public List<PantallaEventoUi> getPantallaEventoUis() {
@@ -157,38 +176,16 @@ public class EventoUi implements Serializable {
 
 	public PantallaEventoUi addPantallaEventoUi(PantallaEventoUi pantallaEventoUi) {
 		getPantallaEventoUis().add(pantallaEventoUi);
-		pantallaEventoUi.setEventoUi(this);
+		pantallaEventoUi.setOperacion(this);
 
 		return pantallaEventoUi;
 	}
 
 	public PantallaEventoUi removePantallaEventoUi(PantallaEventoUi pantallaEventoUi) {
 		getPantallaEventoUis().remove(pantallaEventoUi);
-		pantallaEventoUi.setEventoUi(null);
+		pantallaEventoUi.setOperacion(null);
 
 		return pantallaEventoUi;
-	}
-
-	public List<SecuenciaFlujoPantalla> getSecuenciaFlujoPantallas() {
-		return this.secuenciaFlujoPantallas;
-	}
-
-	public void setSecuenciaFlujoPantallas(List<SecuenciaFlujoPantalla> secuenciaFlujoPantallas) {
-		this.secuenciaFlujoPantallas = secuenciaFlujoPantallas;
-	}
-
-	public SecuenciaFlujoPantalla addSecuenciaFlujoPantalla(SecuenciaFlujoPantalla secuenciaFlujoPantalla) {
-		getSecuenciaFlujoPantallas().add(secuenciaFlujoPantalla);
-		secuenciaFlujoPantalla.setEventoUi(this);
-
-		return secuenciaFlujoPantalla;
-	}
-
-	public SecuenciaFlujoPantalla removeSecuenciaFlujoPantalla(SecuenciaFlujoPantalla secuenciaFlujoPantalla) {
-		getSecuenciaFlujoPantallas().remove(secuenciaFlujoPantalla);
-		secuenciaFlujoPantalla.setEventoUi(null);
-
-		return secuenciaFlujoPantalla;
 	}
 
 	public List<WidgetAccion> getWidgetAccions() {
@@ -201,14 +198,14 @@ public class EventoUi implements Serializable {
 
 	public WidgetAccion addWidgetAccion(WidgetAccion widgetAccion) {
 		getWidgetAccions().add(widgetAccion);
-		widgetAccion.setEventoUi(this);
+		widgetAccion.setOperacion(this);
 
 		return widgetAccion;
 	}
 
 	public WidgetAccion removeWidgetAccion(WidgetAccion widgetAccion) {
 		getWidgetAccions().remove(widgetAccion);
-		widgetAccion.setEventoUi(null);
+		widgetAccion.setOperacion(null);
 
 		return widgetAccion;
 	}

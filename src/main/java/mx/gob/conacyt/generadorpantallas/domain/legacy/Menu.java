@@ -1,4 +1,4 @@
-package generadorpantallas.domain;
+package mx.gob.conacyt.generadorpantallas.domain.legacy;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -55,7 +55,7 @@ public class Menu implements Serializable {
 	//bi-directional many-to-one association to CatComponente
 	@ManyToOne
 	@JoinColumn(name="ID_COMPONENTE")
-	private CatComponente catComponente;
+	private Componente componente;
 
 	//bi-directional many-to-one association to Menu
 	@ManyToOne
@@ -179,12 +179,12 @@ public class Menu implements Serializable {
 		return flujoPantalla;
 	}
 
-	public CatComponente getCatComponente() {
-		return this.catComponente;
+	public Componente getComponente() {
+		return this.componente;
 	}
 
-	public void setCatComponente(CatComponente catComponente) {
-		this.catComponente = catComponente;
+	public void setComponente(Componente componente) {
+		this.componente = componente;
 	}
 
 	public Menu getMenu() {

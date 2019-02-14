@@ -1,4 +1,4 @@
-package generadorpantallas.domain;
+package mx.gob.conacyt.generadorpantallas.domain.legacy;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -13,8 +13,8 @@ import java.util.List;
  */
 @Entity
 @Table(name="CAT_COMPONENTE")
-@NamedQuery(name="CatComponente.findAll", query="SELECT c FROM CatComponente c")
-public class CatComponente implements Serializable {
+@NamedQuery(name="Componente.findAll", query="SELECT c FROM Componente c")
+public class Componente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -48,7 +48,7 @@ public class CatComponente implements Serializable {
 	@OneToMany(mappedBy="catComponente")
 	private List<Menu> menus;
 
-	public CatComponente() {
+	public Componente() {
 	}
 
 	public long getIdComponente() {
