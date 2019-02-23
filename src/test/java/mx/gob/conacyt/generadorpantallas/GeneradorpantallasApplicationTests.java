@@ -38,118 +38,118 @@ import mx.gob.conacyt.generadorpantallas.visitor.ModernModelVisitor;
 @SpringBootTest
 public class GeneradorpantallasApplicationTests {
 
-    @Autowired
-    private ModernToLegacyComponent service;
+	@Autowired
+	private ModernToLegacyComponent service;
 
-    @Autowired
-    private PantallaRepository pantallaRepo;
+	@Autowired
+	private PantallaRepository pantallaRepo;
 
-    @Autowired
-    private ComponenteRepository componenteRepo;
+	@Autowired
+	private ComponenteRepository componenteRepo;
 
-    @Autowired
-    private WidgetRepository widgetRepo;
+	@Autowired
+	private WidgetRepository widgetRepo;
 
-    @Autowired
-    private TipoWidgetRepository tipoWidgetRepo;
+	@Autowired
+	private TipoWidgetRepository tipoWidgetRepo;
 
-    @Autowired
-    private FormatoRepository formatoRepo;
+	@Autowired
+	private FormatoRepository formatoRepo;
 
-    @Autowired
-    private ControlUiRepository controlUiRepo;
+	@Autowired
+	private ControlUiRepository controlUiRepo;
 
-    @Autowired
-    private WidgetPantallaRepository wpRepo;
+	@Autowired
+	private WidgetPantallaRepository wpRepo;
 
-    @Ignore
-    @Test
-    @Transactional
-    public void consultarPantalla() {
-        Optional<Pantalla> maybePantalla = pantallaRepo.findOneByCvePantalla("SNIMONNotificacionAyudantes");
-        maybePantalla.ifPresent(pantalla -> {
-            System.out.println(pantalla.getDescPantalla());
-        });
-    }
+	@Ignore
+	@Test
+	@Transactional
+	public void consultarPantalla() {
+		Optional<Pantalla> maybePantalla = pantallaRepo.findOneByCvePantalla("SNIMONNotificacionAyudantes");
+		maybePantalla.ifPresent(pantalla -> {
+			System.out.println(pantalla.getDescPantalla());
+		});
+	}
 
-    @Ignore
-    @Test
-    @Transactional
-    public void consultarComponente() {
-        componenteRepo.findOneByCveComponente("SNI");
-    }
+	@Ignore
+	@Test
+	@Transactional
+	public void consultarComponente() {
+		componenteRepo.findOneByCveComponente("SNI");
+	}
 
-    @Test
-    @Transactional
-    public void agregarCampoAPantalla() throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        Optional<Pantalla> maybePantalla = pantallaRepo.findOneByCvePantalla("SNISOLPHome");
-        if (maybePantalla.isPresent()) {
-            // Get original Pantalla
-            Pantalla originalPantalla = maybePantalla.get();
+	@Test
+	@Transactional
+	public void agregarCampoAPantalla() throws JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		Optional<Pantalla> maybePantalla = pantallaRepo.findOneByCvePantalla("SNISOLPHome");
+		if (maybePantalla.isPresent()) {
+			// Get original Pantalla
+			Pantalla originalPantalla = maybePantalla.get();
 
-            // Converts original Pantalla to modern
-            mx.gob.conacyt.generadorpantallas.modern.domain.Pantalla modern = testToModern(originalPantalla);
+			// Converts original Pantalla to modern
+			mx.gob.conacyt.generadorpantallas.modern.domain.Pantalla modern = testToModern(originalPantalla);
 
-            Campo c = new Boton();
-            c.setDescripcionCampo("Botón creado programáticamente");
-            c.setPosicion(1);
-            c.setPosicionX(4);
-            c.setLineaNueva("0");
-            modern.getContenedores().get(0).getCampos().add(c);
-            Pantalla legacy = testToLegacy(modern);
-            System.out.println(mapper.writeValueAsString(legacy));
-        }
-    }
+			Campo c = new Boton();
+			c.setDescripcionCampo("Botón creado programáticamente");
+			c.setPosicion(1);
+			c.setPosicionX(4);
+			c.setLineaNueva("0");
+			modern.getContenedores().get(0).getCampos().add(c);
+			Pantalla legacy = testToLegacy(modern);
+			System.out.println(mapper.writeValueAsString(legacy));
+		}
+	}
 
-    @Ignore
-    @Test
-    public void testWidgetPantallaRepo() {
-        WidgetPantalla wp = wpRepo.findFirstByPantallaAndWidget(210010000000101L, 210010000000561L);
-        assert wp != null;
-    }
+	@Ignore
+	@Test
+	public void testWidgetPantallaRepo() {
+		WidgetPantalla wp = wpRepo.findFirstByPantallaAndWidget(210010000000101L, 210010000000561L);
+		assert wp != null;
+	}
 
-    @Ignore
-    @Test
-    @Transactional
-    public void testBidirectionalConversion() throws IOException, JSONException {
-        ObjectMapper mapper = new ObjectMapper();
-        Optional<Pantalla> maybePantalla = pantallaRepo.findOneByCvePantalla("SNISOLPHome");
-        if (maybePantalla.isPresent()) {
-            // Get original Pantalla
-            Pantalla originalPantalla = maybePantalla.get();
+	@Ignore
+	@Test
+	@Transactional
+	public void testBidirectionalConversion() throws IOException, JSONException {
+		ObjectMapper mapper = new ObjectMapper();
+		Optional<Pantalla> maybePantalla = pantallaRepo.findOneByCvePantalla("SNISOLPHome");
+		if (maybePantalla.isPresent()) {
+			// Get original Pantalla
+			Pantalla originalPantalla = maybePantalla.get();
 
-            // Converts original Pantalla to modern
-            mx.gob.conacyt.generadorpantallas.modern.domain.Pantalla modern = testToModern(originalPantalla);
+			// Converts original Pantalla to modern
+			mx.gob.conacyt.generadorpantallas.modern.domain.Pantalla modern = testToModern(originalPantalla);
 
-            // Serialize original Pantalla as JSON
-            String originalPantallaJson = mapper.writeValueAsString(originalPantalla);
+			// Serialize original Pantalla as JSON
+			String originalPantallaJson = mapper.writeValueAsString(originalPantalla);
 
-            // Converts modern Pantalla back to legacy
-            Pantalla legacy = testToLegacy(modern);
+			// Converts modern Pantalla back to legacy
+			Pantalla legacy = testToLegacy(modern);
 
-            // Serialize legacy Pantalla as JSON
-            String legacyJson = mapper.writeValueAsString(legacy);
+			// Serialize legacy Pantalla as JSON
+			String legacyJson = mapper.writeValueAsString(legacy);
 
-            // Compares JSON
-            System.out.println(legacyJson);
-            JSONAssert.assertEquals(originalPantallaJson, legacyJson, JSONCompareMode.LENIENT);
-        } else {
-            fail();
-        }
-    }
+			// Compares JSON
+			System.out.println(legacyJson);
+			JSONAssert.assertEquals(originalPantallaJson, legacyJson, JSONCompareMode.LENIENT);
+		} else {
+			fail();
+		}
+	}
 
-    public mx.gob.conacyt.generadorpantallas.modern.domain.Pantalla testToModern(Pantalla pantalla) {
-        LegacyModelVisitor v = new LegacyModelVisitor();
-        v.visit(pantalla);
-        return v.getPantalla();
-    }
+	public mx.gob.conacyt.generadorpantallas.modern.domain.Pantalla testToModern(Pantalla pantalla) {
+		LegacyModelVisitor v = new LegacyModelVisitor();
+		v.visit(pantalla);
+		return v.getPantalla();
+	}
 
-    public Pantalla testToLegacy(mx.gob.conacyt.generadorpantallas.modern.domain.Pantalla pantalla) {
-        ModernModelVisitor mmv = new ModernModelVisitor(widgetRepo, pantallaRepo, tipoWidgetRepo, formatoRepo,
-                controlUiRepo, wpRepo);
-        mmv.visit(pantalla);
-        return mmv.getPantalla();
-    }
+	public Pantalla testToLegacy(mx.gob.conacyt.generadorpantallas.modern.domain.Pantalla pantalla) {
+		ModernModelVisitor mmv = new ModernModelVisitor(widgetRepo, pantallaRepo, tipoWidgetRepo, formatoRepo,
+				controlUiRepo);
+		mmv.visit(pantalla);
+		return mmv.getPantalla();
+	}
 
 }
