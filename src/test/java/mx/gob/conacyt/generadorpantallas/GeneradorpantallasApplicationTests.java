@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import mx.gob.conacyt.generadorpantallas.legacy.domain.Pantalla;
@@ -28,6 +29,8 @@ import mx.gob.conacyt.generadorpantallas.legacy.repositories.TipoWidgetRepositor
 import mx.gob.conacyt.generadorpantallas.legacy.repositories.WidgetPantallaRepository;
 import mx.gob.conacyt.generadorpantallas.legacy.repositories.WidgetRepository;
 import mx.gob.conacyt.generadorpantallas.legacy.services.ModernToLegacyComponent;
+import mx.gob.conacyt.generadorpantallas.modern.domain.Campo;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.Boton;
 import mx.gob.conacyt.generadorpantallas.visitor.LegacyModelVisitor;
 import mx.gob.conacyt.generadorpantallas.visitor.ModernModelVisitor;
 
@@ -76,10 +79,27 @@ public class GeneradorpantallasApplicationTests {
         componenteRepo.findOneByCveComponente("SNI");
     }
 
-    @Ignore
     @Test
     @Transactional
-    public void agregarCampoAPantalla() {
+    public void agregarCampoAPantalla() throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Optional<Pantalla> maybePantalla = pantallaRepo.findOneByCvePantalla("SNISOLPHome");
+        if (maybePantalla.isPresent()) {
+            // Get original Pantalla
+            Pantalla originalPantalla = maybePantalla.get();
+
+            // Converts original Pantalla to modern
+            mx.gob.conacyt.generadorpantallas.modern.domain.Pantalla modern = testToModern(originalPantalla);
+
+            Campo c = new Boton();
+            c.setDescripcionCampo("Botón creado programáticamente");
+            c.setPosicion(1);
+            c.setPosicionX(4);
+            c.setLineaNueva("0");
+            modern.getContenedores().get(0).getCampos().add(c);
+            Pantalla legacy = testToLegacy(modern);
+            System.out.println(mapper.writeValueAsString(legacy));
+        }
     }
 
     @Ignore
@@ -89,6 +109,7 @@ public class GeneradorpantallasApplicationTests {
         assert wp != null;
     }
 
+    @Ignore
     @Test
     @Transactional
     public void testBidirectionalConversion() throws IOException, JSONException {

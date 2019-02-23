@@ -67,7 +67,7 @@ public class LegacyFactory {
         mx.gob.conacyt.generadorpantallas.legacy.domain.CampoWidget cw = getCampoWidget(campo, tipoCampoRepo);
         // TODO: establecer los valores de auditoría
         cw.setIdCampoWidget(campo.getId());
-        cw.setDescCampoWidget(campo.getDescripcion());
+        cw.setDescCampoWidget(campo.getDescripcionCampo());
         cw.setCveCampoWidget(campo.getClave());
         cw.setActivo(Boolean.toString(campo.isActivo()));
         cw.setAtributo(campo.getAtributo());

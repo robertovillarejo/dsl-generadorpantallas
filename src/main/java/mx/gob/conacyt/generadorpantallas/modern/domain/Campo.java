@@ -4,7 +4,7 @@ public class Campo {
 
     private Long id;
 
-    private boolean activo;
+    private boolean activo = true;
 
     private String atributo;
 
@@ -30,7 +30,7 @@ public class Campo {
 
     private String grid;
 
-    private boolean habilitado;
+    private boolean habilitado = true;
 
     private String formato;
 

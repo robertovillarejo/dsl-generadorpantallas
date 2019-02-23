@@ -80,19 +80,24 @@ public class ModernModelVisitor extends AbstractModernVisitor {
 
     @Override
     public void visit(Contenedor element) {
-        if (!StringUtils.isEmpty(element.getClave())) {
-            Optional<Widget> maybeWidget = widgetRepo.findOneByCveWidget(element.getClave());
+//        if (!StringUtils.isEmpty(element.getClave())) {
+        if (element.getId() != null) {
+//            Optional<Widget> maybeWidget = widgetRepo.findOneByCveWidget(element.getClave());
+            Optional<Widget> maybeWidget = widgetRepo.findById(element.getId());
             lWidget = maybeWidget.get();
         } else {
             lWidget = LegacyFactory.toLegacy(element, tipoWidgetRepo);
         }
         if (lPantalla.getIdPantalla() != null && lWidget.getIdWidget() != null) {
             WidgetPantalla wp = wpRepo.findFirstByPantallaAndWidget(lPantalla.getIdPantalla(), lWidget.getIdWidget());
-            if (wp == null) {
-                WidgetPantalla wpNew = new WidgetPantalla();
-                wpNew.setPantalla(lPantalla);
-                wpNew.setWidget(lWidget);
+            if (wp != null) {
+                lPantalla.getWidgetPantallas().add(wp);
             }
+        } else {
+            WidgetPantalla wpNew = new WidgetPantalla();
+            wpNew.setPantalla(lPantalla);
+            wpNew.setWidget(lWidget);
+            lPantalla.getWidgetPantallas().add(wpNew);
         }
         super.visit(element);
     }
@@ -100,7 +105,6 @@ public class ModernModelVisitor extends AbstractModernVisitor {
     @Override
     public void visit(Campo element) {
         CampoWidget cw = LegacyFactory.toLegacy(element, controlUiRepo, formatoRepo);
-
         lWidget.addCampoWidget(cw);
         super.visit(element);
     }
