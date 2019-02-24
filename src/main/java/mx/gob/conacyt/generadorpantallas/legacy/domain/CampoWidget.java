@@ -6,10 +6,14 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,6 +30,8 @@ public class CampoWidget implements Serializable, Element {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GenericGenerator(name = "prefixGenerator", strategy = "mx.gob.conacyt.generadorpantallas.legacy.domain.identifiergenerators.PrefixBasedGenerator")
+    @GeneratedValue(generator = "prefixGenerator", strategy = GenerationType.SEQUENCE)
     @Column(name = "ID_CAMPO_WIDGET")
     private Long idCampoWidget;
 
@@ -311,7 +317,7 @@ public class CampoWidget implements Serializable, Element {
         return this.formato;
     }
 
-    public void setFormato(Formato Formato) {
+    public void setFormato(Formato formato) {
         this.formato = formato;
     }
 
