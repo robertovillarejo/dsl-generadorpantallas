@@ -1,4 +1,4 @@
-package mx.gob.conacyt.generadorpantallas.legacy.domain.identifiergenerators;
+package mx.gob.conacyt.generadorpantallas.legacy.identifiergenerators;
 
 import java.io.Serializable;
 
@@ -6,24 +6,24 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
-import org.hibernate.persister.entity.AbstractEntityPersister;
+import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Value;
 
 public class PrefixBasedGenerator implements IdentifierGenerator {
 
-    @Value("#{prefix}")
-    private String prefix;
+    private static final String prefix = "13";
 
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
-        String prefix = "13";
-        AbstractEntityPersister entity = ((AbstractEntityPersister) object);
-        String idPropertyName = entity.getIdentifierPropertyName();
-        String entityName = entity.getEntityName();
+        EntityPersister ep = session.getEntityPersister(null, object);
+        String idPropertyName = ep.getIdentifierPropertyName();
+        String entityName = ep.getEntityName();
         Query<Long> query = ((Session) session).createQuery("select max(e." + idPropertyName + ") from " + entityName
-                + " e where " + idPropertyName + " like " + "^" + prefix, Long.class);
+                + " e where e." + idPropertyName + " like '" + prefix + "%'", Long.class);
         Long maxId = query.uniqueResult();
+        if (maxId == null) {
+            return Long.parseLong(prefix.concat("1"));
+        }
         return maxId + 1;
     }
 

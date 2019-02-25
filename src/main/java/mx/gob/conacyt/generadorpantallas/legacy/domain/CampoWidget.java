@@ -30,7 +30,7 @@ public class CampoWidget implements Serializable, Element {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GenericGenerator(name = "prefixGenerator", strategy = "mx.gob.conacyt.generadorpantallas.legacy.domain.identifiergenerators.PrefixBasedGenerator")
+    @GenericGenerator(name = "prefixGenerator", strategy = "mx.gob.conacyt.generadorpantallas.legacy.identifiergenerators.PrefixBasedGenerator")
     @GeneratedValue(generator = "prefixGenerator", strategy = GenerationType.SEQUENCE)
     @Column(name = "ID_CAMPO_WIDGET")
     private Long idCampoWidget;

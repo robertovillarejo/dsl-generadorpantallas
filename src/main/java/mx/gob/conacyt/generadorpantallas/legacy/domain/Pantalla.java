@@ -3,6 +3,8 @@ package mx.gob.conacyt.generadorpantallas.legacy.domain;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import mx.gob.conacyt.generadorpantallas.visitor.Element;
@@ -22,6 +24,8 @@ public class Pantalla implements Serializable, Element {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GenericGenerator(name = "prefixGenerator", strategy = "mx.gob.conacyt.generadorpantallas.legacy.identifiergenerators.PrefixBasedGenerator")
+    @GeneratedValue(generator = "prefixGenerator", strategy = GenerationType.SEQUENCE)
     @Column(name = "ID_PANTALLA")
     private Long idPantalla;
 

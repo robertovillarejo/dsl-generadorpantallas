@@ -3,6 +3,9 @@ package mx.gob.conacyt.generadorpantallas;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Optional;
 
 import org.json.JSONException;
@@ -19,8 +22,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import mx.gob.conacyt.generadorpantallas.legacy.domain.CampoWidget;
+import mx.gob.conacyt.generadorpantallas.legacy.domain.CatControlUi;
+import mx.gob.conacyt.generadorpantallas.legacy.domain.Formato;
 import mx.gob.conacyt.generadorpantallas.legacy.domain.Pantalla;
+import mx.gob.conacyt.generadorpantallas.legacy.domain.Widget;
 import mx.gob.conacyt.generadorpantallas.legacy.domain.WidgetPantalla;
+import mx.gob.conacyt.generadorpantallas.legacy.repositories.CampoWidgetRepository;
 import mx.gob.conacyt.generadorpantallas.legacy.repositories.ComponenteRepository;
 import mx.gob.conacyt.generadorpantallas.legacy.repositories.ControlUiRepository;
 import mx.gob.conacyt.generadorpantallas.legacy.repositories.FormatoRepository;
@@ -28,7 +36,6 @@ import mx.gob.conacyt.generadorpantallas.legacy.repositories.PantallaRepository;
 import mx.gob.conacyt.generadorpantallas.legacy.repositories.TipoWidgetRepository;
 import mx.gob.conacyt.generadorpantallas.legacy.repositories.WidgetPantallaRepository;
 import mx.gob.conacyt.generadorpantallas.legacy.repositories.WidgetRepository;
-import mx.gob.conacyt.generadorpantallas.legacy.services.ModernToLegacyComponent;
 import mx.gob.conacyt.generadorpantallas.modern.domain.Campo;
 import mx.gob.conacyt.generadorpantallas.modern.domain.campos.Boton;
 import mx.gob.conacyt.generadorpantallas.visitor.LegacyModelVisitor;
@@ -37,9 +44,6 @@ import mx.gob.conacyt.generadorpantallas.visitor.ModernModelVisitor;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class GeneradorpantallasApplicationTests {
-
-    @Autowired
-    private ModernToLegacyComponent service;
 
     @Autowired
     private PantallaRepository pantallaRepo;
@@ -62,6 +66,32 @@ public class GeneradorpantallasApplicationTests {
     @Autowired
     private WidgetPantallaRepository wpRepo;
 
+    @Autowired
+    private CampoWidgetRepository cwRepo;
+
+    @Ignore
+    @Test
+    @Transactional
+    public void testPrefixBasedGenerator() throws Exception {
+        Widget w = widgetRepo.findById(130013000526012L).get();
+        Formato f = formatoRepo.findOneByFormato(null).get();
+        CatControlUi tipo = controlUiRepo.findOneByCveControlUi("button").get();
+        CampoWidget cw = new CampoWidget();
+        cw.setDescCampoWidget("Probando prefix based generator");
+        cw.setActivo("0");
+        cw.setHabilitado("0");
+        cw.setWidget(w);
+        cw.setFormato(f);
+        cw.setCatControlUi(tipo);
+        cw.setUsuarioAlta(new BigDecimal(999999));
+        cw.setFechaAlta(new Timestamp(new Date().getTime()));
+        cw.setUsuarioModificacion(new BigDecimal(999999));
+        cw.setFechaModificacion(new Timestamp(new Date().getTime()));
+        cw.setIndEstatus("0");
+        CampoWidget nuevo = cwRepo.save(cw);
+        System.out.println("El id generado es: " + nuevo.getIdCampoWidget());
+    }
+
     @Ignore
     @Test
     @Transactional
@@ -79,6 +109,7 @@ public class GeneradorpantallasApplicationTests {
         componenteRepo.findOneByCveComponente("SNI");
     }
 
+    @Ignore
     @Test
     @Transactional
     public void agregarCampoAPantalla() throws JsonProcessingException {
@@ -109,6 +140,7 @@ public class GeneradorpantallasApplicationTests {
         assert wp != null;
     }
 
+    @Ignore
     @Test
     @Transactional
     public void testBidirectionalConversion() throws IOException, JSONException {
