@@ -30,7 +30,7 @@ public class Campo {
 
     private String grid;
 
-    private boolean habilitado = true;
+    private Boolean habilitado = true;
 
     private String formato;
 
@@ -85,7 +85,7 @@ public class Campo {
     public String getTipo() {
         return "text";
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -190,11 +190,11 @@ public class Campo {
         this.grid = grid;
     }
 
-    public boolean isHabilitado() {
+    public Boolean isHabilitado() {
         return habilitado;
     }
 
-    public void setHabilitado(boolean habilitado) {
+    public void setHabilitado(Boolean habilitado) {
         this.habilitado = habilitado;
     }
 

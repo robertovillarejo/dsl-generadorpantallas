@@ -7,7 +7,6 @@ import mx.gob.conacyt.generadorpantallas.legacy.domain.Menu;
 import mx.gob.conacyt.generadorpantallas.legacy.domain.Pantalla;
 import mx.gob.conacyt.generadorpantallas.legacy.domain.Widget;
 import mx.gob.conacyt.generadorpantallas.modern.domain.Campo;
-import mx.gob.conacyt.generadorpantallas.modern.domain.Contenedor;
 import mx.gob.conacyt.generadorpantallas.modern.domain.Transicion;
 import mx.gob.conacyt.generadorpantallas.modern.domain.campos.Boton;
 import mx.gob.conacyt.generadorpantallas.modern.domain.campos.Checkbox;
@@ -107,7 +106,7 @@ public class ModernFactory {
         campo.setExportar(cw.getExportar());
         campo.setFormato(cw.getFormato().getFormato());
         campo.setGrid(cw.getGrid());
-        campo.setHabilitado(Boolean.parseBoolean(cw.getHabilitado()));
+        campo.setHabilitado(cw.getHabilitado() == null ? null : Boolean.parseBoolean(cw.getHabilitado()));
         campo.setLineaNueva(cw.getLineaNueva());
         campo.setLongitud(cw.getLongitud() == null ? null : cw.getLongitud().intValue());
         campo.setLongitudMinima(cw.getLongitudMinima() == null ? null : cw.getLongitudMinima().intValue());

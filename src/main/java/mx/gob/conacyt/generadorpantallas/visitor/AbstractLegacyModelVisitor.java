@@ -18,7 +18,7 @@ public abstract class AbstractLegacyModelVisitor implements LegacyVisitor {
 
     @Override
     public void visit(Componente element) {
-        LOGGER.info("Visiting element componente");
+        LOGGER.debug("Visiting element componente");
         for (Menu menu : element.getMenus()) {
             visit(menu);
         }
@@ -26,7 +26,7 @@ public abstract class AbstractLegacyModelVisitor implements LegacyVisitor {
 
     @Override
     public void visit(Menu element) {
-        LOGGER.info("Visiting element menu");
+        LOGGER.debug("Visiting element menu");
         for (FlujoPantalla fp : element.getFlujoPantallas()) {
             visit(fp);
         }
@@ -34,7 +34,7 @@ public abstract class AbstractLegacyModelVisitor implements LegacyVisitor {
 
     @Override
     public void visit(FlujoPantalla element) {
-        LOGGER.info("Visiting element FlujoPantalla");
+        LOGGER.debug("Visiting element FlujoPantalla");
         for (SecuenciaFlujoPantalla sfp : element.getSecuenciaFlujoPantallas()) {
             visit(sfp);
         }
@@ -42,12 +42,12 @@ public abstract class AbstractLegacyModelVisitor implements LegacyVisitor {
 
     @Override
     public void visit(SecuenciaFlujoPantalla element) {
-        LOGGER.info("Visiting element SecuenciaFlujoPantalla");
+        LOGGER.debug("Visiting element SecuenciaFlujoPantalla");
     }
 
     @Override
     public void visit(WidgetPantalla element) {
-        LOGGER.info("Visiting element WidgetPantalla");
+        LOGGER.debug("Visiting element WidgetPantalla");
         if (element.getWidget() != null) {
             visit(element.getWidget());
         }
@@ -55,7 +55,7 @@ public abstract class AbstractLegacyModelVisitor implements LegacyVisitor {
 
     @Override
     public void visit(Pantalla element) {
-        LOGGER.info("Visiting element Pantalla");
+        LOGGER.debug("Visiting element Pantalla");
         for (WidgetPantalla wp : element.getWidgetPantallas()) {
             visit(wp);
         }
@@ -63,7 +63,7 @@ public abstract class AbstractLegacyModelVisitor implements LegacyVisitor {
 
     @Override
     public void visit(Widget element) {
-        LOGGER.info("Visiting element Widget");
+        LOGGER.debug("Visiting element Widget");
         for (CampoWidget c : element.getCampoWidgets()) {
             visit(c);
         }
@@ -71,7 +71,7 @@ public abstract class AbstractLegacyModelVisitor implements LegacyVisitor {
 
     @Override
     public void visit(CampoWidget element) {
-        LOGGER.info("Visiting element CampoWidget");
+        LOGGER.debug("Visiting element CampoWidget");
     }
 
 }

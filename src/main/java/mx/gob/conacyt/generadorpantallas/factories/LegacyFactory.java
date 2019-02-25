@@ -62,14 +62,13 @@ public class LegacyFactory {
         return widget;
     }
 
-    public static mx.gob.conacyt.generadorpantallas.legacy.domain.CampoWidget toLegacy(Campo campo,
-            ControlUiRepository tipoCampoRepo, FormatoRepository formatoRepo) {
-        mx.gob.conacyt.generadorpantallas.legacy.domain.CampoWidget cw = getCampoWidget(campo, tipoCampoRepo);
+    public static void toLegacy(Campo campo, CampoWidget cw, ControlUiRepository tipoCampoRepo,
+            FormatoRepository formatoRepo) {
         // TODO: establecer los valores de auditoría
         cw.setIdCampoWidget(campo.getId());
         cw.setDescCampoWidget(campo.getDescripcionCampo());
         cw.setCveCampoWidget(campo.getClave());
-        cw.setActivo(Boolean.toString(campo.isActivo()));
+        cw.setActivo(campo.isActivo() ? "1" : "0");
         cw.setAtributo(campo.getAtributo());
         cw.setBusqueda(campo.getBusqueda());
         cw.setCampoFiltrado(campo.getCampoFiltrado());
@@ -82,7 +81,7 @@ public class LegacyFactory {
         cw.setExportar(campo.getExportar());
         cw.setFormato(getFormato(campo.getFormato(), formatoRepo));
         cw.setGrid(campo.getGrid());
-        cw.setHabilitado(Boolean.toString(campo.isHabilitado()));
+        cw.setHabilitado(campo.isHabilitado() == null ? null : (campo.isHabilitado() ? "1" : "0"));
         cw.setIndEstatus("1");
         cw.setLineaNueva(campo.getLineaNueva());
         cw.setLongitud(campo.getLongitud() == null ? null : new BigDecimal(campo.getLongitud()));
@@ -103,11 +102,10 @@ public class LegacyFactory {
         cw.setPosicion(campo.getPosicion() == null ? null : new BigDecimal(campo.getPosicion()));
         cw.setPosicionX(campo.getPosicionX() == null ? null : new BigDecimal(campo.getPosicionX()));
         cw.setPosicionY(campo.getPosicionY() == null ? null : new BigDecimal(campo.getPosicionY()));
-        cw.setRequerido(Boolean.toString(campo.isRequerido()));
+        cw.setRequerido(campo.isRequerido() ? "1" : "0");
         cw.setUsoDrilldown(campo.getUsoDrillDown());
         cw.setValorDefault(campo.getValorDefault());
         cw.setValorDesplegado(campo.getValorDesplegado());
-        return cw;
     }
 
     public static Formato getFormato(String formatoStr, FormatoRepository formatoRepo) {

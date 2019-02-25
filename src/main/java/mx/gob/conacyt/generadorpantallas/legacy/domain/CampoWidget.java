@@ -311,7 +311,7 @@ public class CampoWidget implements Serializable, Element {
         return this.formato;
     }
 
-    public void setFormato(Formato Formato) {
+    public void setFormato(Formato formato) {
         this.formato = formato;
     }
 

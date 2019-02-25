@@ -15,7 +15,7 @@ public abstract class AbstractModernVisitor implements ModernVisitor {
 
     @Override
     public void visit(Componente element) {
-        LOGGER.info("Visiting element Componente");
+        LOGGER.debug("Visiting element Componente");
         for (Menu m : element.getMenus()) {
             visit(m);
         }
@@ -23,12 +23,12 @@ public abstract class AbstractModernVisitor implements ModernVisitor {
 
     @Override
     public void visit(Menu element) {
-        LOGGER.info("Visiting element Menu");
+        LOGGER.debug("Visiting element Menu");
     }
 
     @Override
     public void visit(Pantalla element) {
-        LOGGER.info("Visiting element Pantalla");
+        LOGGER.debug("Visiting element Pantalla");
         for (Contenedor c : element.getContenedores()) {
             visit(c);
         }
@@ -36,7 +36,7 @@ public abstract class AbstractModernVisitor implements ModernVisitor {
 
     @Override
     public void visit(Contenedor element) {
-        LOGGER.info("Visiting element Contenedor");
+        LOGGER.debug("Visiting element Contenedor");
         for (Campo c : element.getCampos()) {
             visit(c);
         }
@@ -44,7 +44,7 @@ public abstract class AbstractModernVisitor implements ModernVisitor {
 
     @Override
     public void visit(Campo element) {
-        LOGGER.info("Visiting element Campo");
+        LOGGER.debug("Visiting element Campo");
     }
 
 }
