@@ -12,7 +12,7 @@ public interface ModernVisitor {
     
     public void visit(Menu element);
     
-    public void visit(Pantalla element);
+    public void visit(Pantalla element) throws Exception;
     
     public void visit(Contenedor element);
     

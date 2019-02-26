@@ -1,19 +1,26 @@
 package mx.gob.conacyt.generadorpantallas.legacy.domain;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import mx.gob.conacyt.generadorpantallas.visitor.Element;
 import mx.gob.conacyt.generadorpantallas.visitor.LegacyVisitor;
-
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The persistent class for the PANTALLA database table.
@@ -38,8 +45,9 @@ public class Pantalla implements Serializable, Element {
     @Column(name = "FECHA_ALTA")
     private Timestamp fechaAlta;
 
+    @LastModifiedDate
     @Column(name = "FECHA_MODIFICACION")
-    private Timestamp fechaModificacion;
+    private Date fechaModificacion;
 
     @Column(name = "ID_TIPO_PANTALLA")
     private BigDecimal idTipoPantalla;
@@ -62,10 +70,6 @@ public class Pantalla implements Serializable, Element {
     @JsonIgnore
     @OneToMany(mappedBy = "pantalla")
     private List<SecuenciaFlujoPantalla> secuenciaFlujoPantallas = new ArrayList<>();
-
-//    @ManyToMany
-//    @JoinTable(name = "WIDGET_PANTALLA", joinColumns = @JoinColumn(name = "ID_PANTALLA", referencedColumnName = "ID_PANTALLA"), inverseJoinColumns = @JoinColumn(name = "ID_WIDGET", referencedColumnName = "ID_WIDGET"))
-//    private List<Widget> widgets = new ArrayList<>();
 
     // bi-directional many-to-one association to WidgetPantalla
     @OneToMany(mappedBy = "pantalla")
@@ -106,11 +110,11 @@ public class Pantalla implements Serializable, Element {
         this.fechaAlta = fechaAlta;
     }
 
-    public Timestamp getFechaModificacion() {
+    public Date getFechaModificacion() {
         return this.fechaModificacion;
     }
 
-    public void setFechaModificacion(Timestamp fechaModificacion) {
+    public void setFechaModificacion(Date fechaModificacion) {
         this.fechaModificacion = fechaModificacion;
     }
 

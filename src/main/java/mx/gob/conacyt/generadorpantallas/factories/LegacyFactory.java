@@ -11,12 +11,16 @@ import mx.gob.conacyt.generadorpantallas.legacy.domain.Widget;
 import mx.gob.conacyt.generadorpantallas.legacy.repositories.ControlUiRepository;
 import mx.gob.conacyt.generadorpantallas.legacy.repositories.FormatoRepository;
 import mx.gob.conacyt.generadorpantallas.legacy.repositories.TipoWidgetRepository;
-import mx.gob.conacyt.generadorpantallas.legacy.repositories.WidgetRepository;
 import mx.gob.conacyt.generadorpantallas.modern.domain.Campo;
 import mx.gob.conacyt.generadorpantallas.modern.domain.Contenedor;
 import mx.gob.conacyt.generadorpantallas.modern.domain.Pantalla;
 
 public class LegacyFactory {
+
+    public static mx.gob.conacyt.generadorpantallas.legacy.domain.Pantalla getPantalla() {
+        mx.gob.conacyt.generadorpantallas.legacy.domain.Pantalla pantalla = new mx.gob.conacyt.generadorpantallas.legacy.domain.Pantalla();
+        return pantalla;
+    }
 
     public static Widget getWidget(mx.gob.conacyt.generadorpantallas.modern.domain.Contenedor contenedor,
             TipoWidgetRepository repo) {
@@ -25,28 +29,23 @@ public class LegacyFactory {
         if (maybeTipo.isPresent()) {
             widget.setCatTipoWidget(maybeTipo.get());
         }
-//        else {
-//            return new Widget();
-//            // throw new Exception(String.format("Falló al recuperar el widget de tipo: {}",
-//            // contenedor.getTipo()));
-//        }
+//throw new Exception(String.format("Falló al recuperar el widget de tipo: {}",
         return widget;
     }
 
-    public static mx.gob.conacyt.generadorpantallas.legacy.domain.Pantalla toLegacy(Pantalla pantalla,
-            WidgetRepository repo) {
-        mx.gob.conacyt.generadorpantallas.legacy.domain.Pantalla legacy = new mx.gob.conacyt.generadorpantallas.legacy.domain.Pantalla();
-        legacy.setIdPantalla(pantalla.getId());
-        legacy.setCvePantalla(pantalla.getClave());
-        legacy.setDescPantalla(pantalla.getDescripcion());
+    public static void mergeToLegacy(Pantalla modern, mx.gob.conacyt.generadorpantallas.legacy.domain.Pantalla legacy) {
+        legacy.setIdPantalla(modern.getId());
+        legacy.setCvePantalla(modern.getClave());
+        legacy.setDescPantalla(modern.getDescripcion());
         legacy.setIdTipoPantalla(new BigDecimal(1));// Pantalla dinámica
         legacy.setIndEstatus("1");
-        return legacy;
+        legacy.setFechaAlta(modern.getFechaAlta());
+        legacy.setFechaModificacion(modern.getFechaModificacion());
+        legacy.setUsuarioAlta(modern.getUsuarioAlta());
+        legacy.setUsuarioModificacion(modern.getUsuarioModificacion());
     }
 
-    public static mx.gob.conacyt.generadorpantallas.legacy.domain.Widget toLegacy(Contenedor contenedor,
-            TipoWidgetRepository repo) {
-        mx.gob.conacyt.generadorpantallas.legacy.domain.Widget widget = getWidget(contenedor, repo);
+    public static void mergeToLegacy(Contenedor contenedor, Widget widget) {
         widget.setIdWidget(contenedor.getId());
         widget.setConfiguration(contenedor.getConfiguracion());
         widget.setCveWidget(contenedor.getClave());
@@ -59,11 +58,13 @@ public class LegacyFactory {
         widget.setNgStyle(contenedor.getNgStyle());
         widget.setPosicion(new BigDecimal(contenedor.getPosicion()));
         widget.setTamanio(contenedor.getTamanio().toString());
-        return widget;
+        widget.setFechaAlta(contenedor.getFechaAlta());
+//        widget.setFechaModificacion(contenedor.getFechaModificacion());
+        widget.setUsuarioAlta(contenedor.getUsuarioAlta());
+        widget.setUsuarioModificacion(contenedor.getUsuarioModificacion());
     }
 
-    public static void toLegacy(Campo campo, CampoWidget cw, ControlUiRepository tipoCampoRepo,
-            FormatoRepository formatoRepo) {
+    public static void mergeToLegacy(Campo campo, CampoWidget cw, FormatoRepository formatoRepo) {
         // TODO: establecer los valores de auditoría
         cw.setIdCampoWidget(campo.getId());
         cw.setDescCampoWidget(campo.getDescripcionCampo());
@@ -106,6 +107,10 @@ public class LegacyFactory {
         cw.setUsoDrilldown(campo.getUsoDrillDown());
         cw.setValorDefault(campo.getValorDefault());
         cw.setValorDesplegado(campo.getValorDesplegado());
+        cw.setFechaAlta(campo.getFechaAlta());
+//        cw.setFechaModificacion(campo.getFechaModificacion());
+        cw.setUsuarioAlta(campo.getUsuarioAlta());
+        cw.setUsuarioModificacion(campo.getUsuarioModificacion());
     }
 
     public static Formato getFormato(String formatoStr, FormatoRepository formatoRepo) {

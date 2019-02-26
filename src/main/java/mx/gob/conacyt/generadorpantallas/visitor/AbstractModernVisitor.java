@@ -27,7 +27,7 @@ public abstract class AbstractModernVisitor implements ModernVisitor {
     }
 
     @Override
-    public void visit(Pantalla element) {
+    public void visit(Pantalla element) throws Exception{
         LOGGER.debug("Visiting element Pantalla");
         for (Contenedor c : element.getContenedores()) {
             visit(c);

@@ -419,7 +419,7 @@ public class Widget implements Serializable, Element {
 
         return widgetPantalla;
     }
-    
+
     @Override
     public void accept(LegacyVisitor visitor) {
         visitor.visit(this);

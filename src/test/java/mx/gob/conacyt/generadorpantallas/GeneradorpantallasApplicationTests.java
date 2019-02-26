@@ -69,7 +69,6 @@ public class GeneradorpantallasApplicationTests {
     @Autowired
     private CampoWidgetRepository cwRepo;
 
-    @Ignore
     @Test
     @Transactional
     public void testPrefixBasedGenerator() throws Exception {
@@ -104,15 +103,13 @@ public class GeneradorpantallasApplicationTests {
 
     @Ignore
     @Test
-    @Transactional
     public void consultarComponente() {
         componenteRepo.findOneByCveComponente("SNI");
     }
 
-    @Ignore
     @Test
-    @Transactional
-    public void agregarCampoAPantalla() throws JsonProcessingException {
+    @Transactional()
+    public void agregarCampoAPantalla() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         Optional<Pantalla> maybePantalla = pantallaRepo.findOneByCvePantalla("SNISOLPHome");
         if (maybePantalla.isPresent()) {
@@ -123,12 +120,18 @@ public class GeneradorpantallasApplicationTests {
             mx.gob.conacyt.generadorpantallas.modern.domain.Pantalla modern = testToModern(originalPantalla);
 
             Campo c = new Boton();
+            c.setActivo(true);
+            c.setHabilitado(true);
+            c.setDescripcion("test");
             c.setDescripcionCampo("Botón creado programáticamente");
+            c.setNgClass("'btn-default'");
             c.setPosicion(1);
             c.setPosicionX(4);
             c.setLineaNueva("0");
+            c.setLongitud(10);
             modern.getContenedores().get(0).getCampos().add(c);
             Pantalla legacy = testToLegacy(modern);
+            pantallaRepo.save(legacy);
             System.out.println(mapper.writeValueAsString(legacy));
         }
     }
@@ -143,7 +146,7 @@ public class GeneradorpantallasApplicationTests {
     @Ignore
     @Test
     @Transactional
-    public void testBidirectionalConversion() throws IOException, JSONException {
+    public void testBidirectionalConversion() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         Optional<Pantalla> maybePantalla = pantallaRepo.findOneByCvePantalla("SNISOLPHome");
         if (maybePantalla.isPresent()) {
@@ -176,9 +179,8 @@ public class GeneradorpantallasApplicationTests {
         return v.getPantalla();
     }
 
-    public Pantalla testToLegacy(mx.gob.conacyt.generadorpantallas.modern.domain.Pantalla pantalla) {
-        ModernModelVisitor mmv = new ModernModelVisitor(widgetRepo, pantallaRepo, tipoWidgetRepo, formatoRepo,
-                controlUiRepo);
+    public Pantalla testToLegacy(mx.gob.conacyt.generadorpantallas.modern.domain.Pantalla pantalla) throws Exception {
+        ModernModelVisitor mmv = new ModernModelVisitor(pantallaRepo, tipoWidgetRepo, formatoRepo, controlUiRepo);
         mmv.visit(pantalla);
         return mmv.getPantalla();
     }

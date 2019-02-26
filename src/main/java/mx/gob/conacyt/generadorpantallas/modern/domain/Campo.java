@@ -1,6 +1,6 @@
 package mx.gob.conacyt.generadorpantallas.modern.domain;
 
-public class Campo {
+public class Campo extends AbstractAuditing {
 
     private Long id;
 

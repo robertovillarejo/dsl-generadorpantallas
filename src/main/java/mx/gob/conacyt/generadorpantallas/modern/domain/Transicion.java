@@ -1,15 +1,15 @@
 package mx.gob.conacyt.generadorpantallas.modern.domain;
 
-public class Transicion {
+public class Transicion extends AbstractAuditing {
 
-	private Pantalla pantalla;
+    private Pantalla pantalla;
 
-	public Pantalla getPantalla() {
-		return pantalla;
-	}
+    public Pantalla getPantalla() {
+        return pantalla;
+    }
 
-	public void setPantalla(Pantalla pantalla) {
-		this.pantalla = pantalla;
-	}
+    public void setPantalla(Pantalla pantalla) {
+        this.pantalla = pantalla;
+    }
 
 }

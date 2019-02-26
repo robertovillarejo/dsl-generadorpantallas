@@ -3,7 +3,7 @@ package mx.gob.conacyt.generadorpantallas.modern.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pantalla {
+public class Pantalla extends AbstractAuditing {
 
     private Long id;
 

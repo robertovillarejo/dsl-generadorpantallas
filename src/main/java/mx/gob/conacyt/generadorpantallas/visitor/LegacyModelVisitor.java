@@ -8,7 +8,6 @@ import mx.gob.conacyt.generadorpantallas.legacy.domain.Menu;
 import mx.gob.conacyt.generadorpantallas.legacy.domain.Pantalla;
 import mx.gob.conacyt.generadorpantallas.legacy.domain.SecuenciaFlujoPantalla;
 import mx.gob.conacyt.generadorpantallas.legacy.domain.Widget;
-import mx.gob.conacyt.generadorpantallas.legacy.domain.WidgetPantalla;
 import mx.gob.conacyt.generadorpantallas.modern.domain.Campo;
 import mx.gob.conacyt.generadorpantallas.modern.domain.Contenedor;
 
@@ -23,13 +22,12 @@ public class LegacyModelVisitor extends AbstractLegacyModelVisitor {
 
     @Override
     public void visit(Componente element) {
-        mx.gob.conacyt.generadorpantallas.modern.domain.Componente c = ModernFactory.toModern(element);
+//        mx.gob.conacyt.generadorpantallas.modern.domain.Componente c = ModernFactory.toModern(element);
         super.visit(element);
     }
 
     @Override
     public void visit(Menu element) {
-//        mx.gob.conacyt.generadorpantallas.modern.domain.Menu m = LegacyToModernConverter.toModern(element);
         super.visit(element);
     }
 
@@ -42,14 +40,6 @@ public class LegacyModelVisitor extends AbstractLegacyModelVisitor {
     public void visit(SecuenciaFlujoPantalla element) {
         super.visit(element);
     }
-
-//    @Override
-//    public void visit(WidgetPantalla element) {
-//        if (element.getWidget() != null) {
-//            mPantalla.getContenedores().add(ModernFactory.toModern(element.getWidget()));
-//        }
-//        super.visit(element);
-//    }
 
     @Override
     public void visit(Pantalla element) {

@@ -53,6 +53,10 @@ public class ModernFactory {
         modern.setClave(componente.getCveComponente());
         modern.setDescripcion(componente.getDescComponente());
         modern.setId(componente.getIdComponente());
+        modern.setFechaAlta(componente.getFechaAlta());
+        modern.setFechaModificacion(componente.getFechaModificacion());
+        modern.setUsuarioAlta(componente.getUsuarioAlta());
+        modern.setUsuarioModificacion(componente.getUsuarioModificacion());
         return modern;
     }
 
@@ -61,6 +65,10 @@ public class ModernFactory {
         mx.gob.conacyt.generadorpantallas.modern.domain.Menu modern = new mx.gob.conacyt.generadorpantallas.modern.domain.Menu();
         Transicion transicion = new Transicion();
         modern.setTransicion(transicion);
+        modern.setFechaAlta(menu.getFechaAlta());
+        modern.setFechaModificacion(menu.getFechaModificacion());
+        modern.setUsuarioAlta(menu.getUsuarioAlta());
+        modern.setUsuarioModificacion(menu.getUsuarioModificacion());
         return modern;
     }
 
@@ -69,6 +77,10 @@ public class ModernFactory {
         modern.setId(pantalla.getIdPantalla());
         modern.setClave(pantalla.getCvePantalla());
         modern.setDescripcion(pantalla.getDescPantalla());
+        modern.setFechaAlta(pantalla.getFechaAlta());
+        modern.setFechaModificacion(pantalla.getFechaModificacion());
+        modern.setUsuarioAlta(pantalla.getUsuarioAlta());
+        modern.setUsuarioModificacion(pantalla.getUsuarioModificacion());
         return modern;
     }
 
@@ -85,6 +97,10 @@ public class ModernFactory {
         contenedor.setNgStyle(widget.getNgStyle());
         contenedor.setPosicion(widget.getPosicion().intValue());
         contenedor.setTamanio(Integer.parseInt(widget.getTamanio()));
+        contenedor.setFechaAlta(widget.getFechaAlta());
+        contenedor.setFechaModificacion(widget.getFechaModificacion());
+        contenedor.setUsuarioAlta(widget.getUsuarioAlta());
+        contenedor.setUsuarioModificacion(widget.getUsuarioModificacion());
         return contenedor;
     }
 
@@ -130,6 +146,10 @@ public class ModernFactory {
         campo.setUsoDrillDown(cw.getUsoDrilldown());
         campo.setValorDefault(cw.getValorDefault());
         campo.setValorDesplegado(cw.getValorDesplegado());
+        campo.setFechaAlta(cw.getFechaAlta());
+        campo.setFechaModificacion(cw.getFechaModificacion());
+        campo.setUsuarioAlta(cw.getUsuarioAlta());
+        campo.setUsuarioModificacion(cw.getUsuarioModificacion());
         return campo;
     }
 
