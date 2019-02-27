@@ -58,7 +58,7 @@ public class ModernModelVisitor extends AbstractModernVisitor {
         if (!maybePantalla.isPresent()) {
             throw new Exception(String.format("Pantalla with clave {} not found", element.getClave()));
         }
-        lPantalla = LegacyFactory.getPantalla();
+        lPantalla = maybePantalla.get();
         LegacyFactory.mergeToLegacy(element, lPantalla);
         super.visit(element);
     }
@@ -69,6 +69,7 @@ public class ModernModelVisitor extends AbstractModernVisitor {
             Optional<WidgetPantalla> maybeWp = findWidgetPantalla(element.getId(), lPantalla.getIdPantalla());
             if (maybeWp.isPresent()) {
                 lWidget = maybeWp.get().getWidget();
+                LegacyFactory.mergeToLegacy(element, lWidget);
             } else {
                 lWidget = LegacyFactory.getWidget(element, tipoWidgetRepo);
             }

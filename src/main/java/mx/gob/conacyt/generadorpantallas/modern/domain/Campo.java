@@ -1,6 +1,6 @@
 package mx.gob.conacyt.generadorpantallas.modern.domain;
 
-public class Campo extends AbstractAuditing {
+public abstract class Campo extends AbstractAuditing {
 
     private Long id;
 
@@ -81,10 +81,6 @@ public class Campo extends AbstractAuditing {
     private String ngClass;
 
     private String ngChange;
-
-    public String getTipo() {
-        return "text";
-    }
 
     public Long getId() {
         return id;

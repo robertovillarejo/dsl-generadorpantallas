@@ -43,11 +43,6 @@ public class CatTipoWidget implements Serializable {
     @Column(name = "USUARIO_MODIFICACION")
     private BigDecimal usuarioModificacion;
 
-    // bi-directional many-to-one association to Widget
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "catTipoWidget")
-//    private List<Widget> widgets;
-
     public CatTipoWidget() {
     }
 
@@ -114,27 +109,5 @@ public class CatTipoWidget implements Serializable {
     public void setUsuarioModificacion(BigDecimal usuarioModificacion) {
         this.usuarioModificacion = usuarioModificacion;
     }
-
-//    public List<Widget> getWidgets() {
-//        return this.widgets;
-//    }
-//
-//    public void setWidgets(List<Widget> widgets) {
-//        this.widgets = widgets;
-//    }
-
-//    public Widget addWidget(Widget widget) {
-//        getWidgets().add(widget);
-//        widget.setCatTipoWidget(this);
-//
-//        return widget;
-//    }
-//
-//    public Widget removeWidget(Widget widget) {
-//        getWidgets().remove(widget);
-//        widget.setCatTipoWidget(null);
-//
-//        return widget;
-//    }
 
 }

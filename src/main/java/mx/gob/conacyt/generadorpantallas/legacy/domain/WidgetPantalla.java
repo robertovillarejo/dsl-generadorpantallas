@@ -59,7 +59,7 @@ public class WidgetPantalla implements Serializable, Element {
     private Pantalla pantalla;
 
     // bi-directional many-to-one association to Widget
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_WIDGET")
     private Widget widget;
 

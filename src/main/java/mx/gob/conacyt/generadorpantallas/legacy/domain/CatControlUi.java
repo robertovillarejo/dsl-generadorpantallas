@@ -1,13 +1,13 @@
 package mx.gob.conacyt.generadorpantallas.legacy.domain;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * The persistent class for the CAT_CONTROL_UI database table.
@@ -42,11 +42,6 @@ public class CatControlUi implements Serializable {
 
     @Column(name = "USUARIO_MODIFICACION")
     private BigDecimal usuarioModificacion;
-
-    // bi-directional many-to-one association to CampoWidget
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "catControlUi")
-//    private List<CampoWidget> campoWidgets;
 
     public CatControlUi() {
     }
@@ -114,27 +109,5 @@ public class CatControlUi implements Serializable {
     public void setUsuarioModificacion(BigDecimal usuarioModificacion) {
         this.usuarioModificacion = usuarioModificacion;
     }
-
-//    public List<CampoWidget> getCampoWidgets() {
-//        return this.campoWidgets;
-//    }
-//
-//    public void setCampoWidgets(List<CampoWidget> campoWidgets) {
-//        this.campoWidgets = campoWidgets;
-//    }
-
-//    public CampoWidget addCampoWidget(CampoWidget campoWidget) {
-//        getCampoWidgets().add(campoWidget);
-//        campoWidget.setCatControlUi(this);
-//
-//        return campoWidget;
-//    }
-//
-//    public CampoWidget removeCampoWidget(CampoWidget campoWidget) {
-//        getCampoWidgets().remove(campoWidget);
-//        campoWidget.setCatControlUi(null);
-//
-//        return campoWidget;
-//    }
 
 }

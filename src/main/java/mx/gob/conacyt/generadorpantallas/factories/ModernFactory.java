@@ -8,12 +8,40 @@ import mx.gob.conacyt.generadorpantallas.legacy.domain.Pantalla;
 import mx.gob.conacyt.generadorpantallas.legacy.domain.Widget;
 import mx.gob.conacyt.generadorpantallas.modern.domain.Campo;
 import mx.gob.conacyt.generadorpantallas.modern.domain.Transicion;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.BootstrapSpace;
 import mx.gob.conacyt.generadorpantallas.modern.domain.campos.Boton;
 import mx.gob.conacyt.generadorpantallas.modern.domain.campos.Checkbox;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.DatePicker;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.HeaderlessTable;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.HrGraficaBase;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.Imagen;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.InputFile;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.InputTextAddon;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.Label;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.LabelText;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.LabeledCheckbox;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.Link;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.ListGroup;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.NgSelect;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.Password;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.RadioButton;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.SectionSubtitle;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.Select;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.SignedDocument;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.Span;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.Text;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.TextArea;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.TimePicker;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.TitleH1;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.TitleH2;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.TitleH3;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.UiSelect;
+import mx.gob.conacyt.generadorpantallas.modern.domain.campos.Wizard;
 import mx.gob.conacyt.generadorpantallas.modern.domain.contenedores.Form;
 import mx.gob.conacyt.generadorpantallas.modern.domain.contenedores.Grid;
 import mx.gob.conacyt.generadorpantallas.modern.domain.contenedores.Modal;
 import mx.gob.conacyt.generadorpantallas.modern.domain.contenedores.Panel;
+import static mx.gob.conacyt.generadorpantallas.factories.LegacyConstants.*;
 
 public class ModernFactory {
 
@@ -23,12 +51,66 @@ public class ModernFactory {
     public static Campo getCampo(CampoWidget cw) {
         String tipo = cw.getCatControlUi().getCveControlUi();
         switch (tipo) {
-        case "button":
+        case BUTTON:
             return new Boton();
-        case "checkbox":
+        case CHECKBOX:
             return new Checkbox();
+        case LABELED_CHECKBOX:
+            return new LabeledCheckbox();
+        case DATEPICKER:
+            return new DatePicker();
+        case HR:
+            return new HrGraficaBase();
+        case IMAGEN:
+            return new Imagen();
+        case INPUT_TEXT_ADDON:
+            return new InputTextAddon();
+        case INPUT_FILE:
+            return new InputFile();
+        case LABEL:
+            return new Label();
+        case LABEL_TEXT:
+            return new LabelText();
+        case LINK:
+            return new Link();
+        case LIST_GROUP:
+            return new ListGroup();
+        case NG_SELECT:
+            return new NgSelect();
+        case PASSWORD:
+            return new Password();
+        case RADIO_BUTTON:
+            return new RadioButton();
+        case TITLE_H2:
+            return new TitleH2();
+        case TITLE_H3:
+            return new TitleH3();
+        case SELECT:
+            return new Select();
+        case SIGNED_DOCUMENT:
+            return new SignedDocument();
+        case BOOTSTRAP_SPACE:
+            return new BootstrapSpace();
+        case SPAN:
+            return new Span();
+        case SECTION_SUBTITLE:
+            return new SectionSubtitle();
+        case HEADERLESS_TABLE:
+            return new HeaderlessTable();
+        case TEXT:
+            return new Text();
+        case TEXT_AREA:
+            return new TextArea();
+        case TIME_PICKER:
+            return new TimePicker();
+        case TITLE_H1:
+            return new TitleH1();
+        case UI_SELECT:
+            return new UiSelect();
+        case WIZARD:
+            return new Wizard();
         }
-        return new Campo();
+        return new Text();
     }
 
     public static mx.gob.conacyt.generadorpantallas.modern.domain.Contenedor getContenedor(Widget widget) {

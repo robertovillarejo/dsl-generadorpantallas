@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -72,7 +73,7 @@ public class Pantalla implements Serializable, Element {
     private List<SecuenciaFlujoPantalla> secuenciaFlujoPantallas = new ArrayList<>();
 
     // bi-directional many-to-one association to WidgetPantalla
-    @OneToMany(mappedBy = "pantalla")
+    @OneToMany(mappedBy = "pantalla", cascade = CascadeType.ALL)
     private List<WidgetPantalla> widgetPantallas = new ArrayList<>();
 
     public Pantalla() {
@@ -220,12 +221,4 @@ public class Pantalla implements Serializable, Element {
     public void accept(LegacyVisitor visitor) {
         visitor.visit(this);
     }
-
-//    public List<Widget> getWidgets() {
-//        return widgets;
-//    }
-//
-//    public void setWidgets(List<Widget> widgets) {
-//        this.widgets = widgets;
-//    }
 }

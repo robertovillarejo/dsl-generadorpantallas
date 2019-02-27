@@ -3,7 +3,7 @@ package mx.gob.conacyt.generadorpantallas.modern.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Contenedor extends AbstractAuditing {
+public abstract class Contenedor extends AbstractAuditing {
 
     private Long id;
 
@@ -28,10 +28,6 @@ public class Contenedor extends AbstractAuditing {
     private Integer posicion;
 
     private Integer tamanio;
-
-    public String getTipo() {
-        return "form";
-    }
 
     public Long getId() {
         return id;

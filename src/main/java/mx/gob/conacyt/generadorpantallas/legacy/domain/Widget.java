@@ -70,7 +70,7 @@ public class Widget implements Serializable, Element {
     private BigDecimal usuarioModificacion;
 
     // bi-directional many-to-one association to CampoWidget
-    @OneToMany(mappedBy = "widget")
+    @OneToMany(mappedBy = "widget", cascade = CascadeType.ALL)
     private List<CampoWidget> campoWidgets = new ArrayList<>();
 
     // bi-directional many-to-one association to CampoWidgetEventoUi
