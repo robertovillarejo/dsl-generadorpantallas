@@ -5,132 +5,144 @@ import java.util.List;
 
 public abstract class Contenedor extends AbstractAuditing {
 
-    private Long id;
+	private Long id;
 
-    private List<Campo> campos = new ArrayList<>();
+	private List<Campo> campos = new ArrayList<>();
 
-    private String configuracion;
+	private String configuracion;
 
-    private String clave;
+	private String clave;
 
-    private String descripcion;
+	private String descripcion;
 
-    private String ngClass;
+	private String ngClass;
 
-    private String ngIf;
+	private String ngIf;
 
-    private String ngShow;
+	private String ngShow;
 
-    private String ngStyle;
+	private String ngStyle;
 
-    private String ngRepeat;
+	private String ngRepeat;
 
-    private Integer posicion;
+	private Integer posicion;
 
-    private Integer tamanio;
+	private Integer tamanio;
 
-    public Long getId() {
-        return id;
-    }
+	private List<Contenedor> hijos = new ArrayList<>();
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	private Contenedor padre;
 
-    public List<Campo> getCampos() {
-        return campos;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setCampos(List<Campo> campos) {
-        this.campos = campos;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getConfiguracion() {
-        return configuracion;
-    }
+	public List<Campo> getCampos() {
+		return campos;
+	}
 
-    public void setConfiguracion(String configuracion) {
-        this.configuracion = configuracion;
-    }
+	public void setCampos(List<Campo> campos) {
+		this.campos = campos;
+	}
 
-    public String getClave() {
-        return clave;
-    }
+	public String getConfiguracion() {
+		return configuracion;
+	}
 
-    public void setClave(String clave) {
-        this.clave = clave;
-    }
+	public void setConfiguracion(String configuracion) {
+		this.configuracion = configuracion;
+	}
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+	public String getClave() {
+		return clave;
+	}
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
 
-    public String getNgClass() {
-        return ngClass;
-    }
+	public String getDescripcion() {
+		return descripcion;
+	}
 
-    public void setNgClass(String ngClass) {
-        this.ngClass = ngClass;
-    }
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
-    public String getNgIf() {
-        return ngIf;
-    }
+	public String getNgClass() {
+		return ngClass;
+	}
 
-    public void setNgIf(String ngIf) {
-        this.ngIf = ngIf;
-    }
+	public void setNgClass(String ngClass) {
+		this.ngClass = ngClass;
+	}
 
-    public String getNgShow() {
-        return ngShow;
-    }
+	public String getNgIf() {
+		return ngIf;
+	}
 
-    public void setNgShow(String ngShow) {
-        this.ngShow = ngShow;
-    }
+	public void setNgIf(String ngIf) {
+		this.ngIf = ngIf;
+	}
 
-    public String getNgStyle() {
-        return ngStyle;
-    }
+	public String getNgShow() {
+		return ngShow;
+	}
 
-    public void setNgStyle(String ngStyle) {
-        this.ngStyle = ngStyle;
-    }
+	public void setNgShow(String ngShow) {
+		this.ngShow = ngShow;
+	}
 
-    public String getNgRepeat() {
-        return ngRepeat;
-    }
+	public String getNgStyle() {
+		return ngStyle;
+	}
 
-    public void setNgRepeat(String ngRepeat) {
-        this.ngRepeat = ngRepeat;
-    }
+	public void setNgStyle(String ngStyle) {
+		this.ngStyle = ngStyle;
+	}
 
-    public Integer getPosicion() {
-        return posicion;
-    }
+	public String getNgRepeat() {
+		return ngRepeat;
+	}
 
-    public void setPosicion(Integer posicion) {
-        this.posicion = posicion;
-    }
+	public void setNgRepeat(String ngRepeat) {
+		this.ngRepeat = ngRepeat;
+	}
 
-    public Integer getTamanio() {
-        return tamanio;
-    }
+	public Integer getPosicion() {
+		return posicion;
+	}
 
-    public void setTamanio(Integer tamanio) {
-        this.tamanio = tamanio;
-    }
+	public void setPosicion(Integer posicion) {
+		this.posicion = posicion;
+	}
 
-    @Override
-    public String toString() {
-        return "Contenedor [id=" + id + ", campos=" + campos + ", configuracion=" + configuracion + ", clave=" + clave
-                + ", descripcion=" + descripcion + ", ngClass=" + ngClass + ", ngIf=" + ngIf + ", ngShow=" + ngShow
-                + ", ngStyle=" + ngStyle + ", ngRepeat=" + ngRepeat + ", posicion=" + posicion + ", tamanio=" + tamanio
-                + "]";
-    }
+	public Integer getTamanio() {
+		return tamanio;
+	}
+
+	public void setTamanio(Integer tamanio) {
+		this.tamanio = tamanio;
+	}
+
+	public List<Contenedor> getHijos() {
+		return hijos;
+	}
+
+	public void setHijos(List<Contenedor> hijos) {
+		this.hijos = hijos;
+	}
+
+	public Contenedor getPadre() {
+		return padre;
+	}
+
+	public void setPadre(Contenedor padre) {
+		this.padre = padre;
+	}
 
 }

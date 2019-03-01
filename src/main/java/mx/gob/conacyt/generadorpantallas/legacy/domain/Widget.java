@@ -19,424 +19,422 @@ import java.util.List;
  */
 @Entity
 public class Widget implements Serializable, Element {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(name = "ID_WIDGET")
-    private Long idWidget;
+	@Id
+	@Column(name = "ID_WIDGET")
+	private Long idWidget;
 
-    private String configuration;
+	private String configuration;
 
-    @Column(name = "CVE_WIDGET")
-    private String cveWidget;
+	@Column(name = "CVE_WIDGET")
+	private String cveWidget;
 
-    @Column(name = "DESC_WIDGET")
-    private String descWidget;
+	@Column(name = "DESC_WIDGET")
+	private String descWidget;
 
-    @Column(name = "FECHA_ALTA")
-    private Timestamp fechaAlta;
+	@Column(name = "FECHA_ALTA")
+	private Timestamp fechaAlta;
 
-    @Column(name = "FECHA_MODIFICACION")
-    private Timestamp fechaModificacion;
+	@Column(name = "FECHA_MODIFICACION")
+	private Timestamp fechaModificacion;
 
-    @Column(name = "ID_AREA_TEMATICA")
-    private BigDecimal idAreaTematica;
+	@Column(name = "ID_AREA_TEMATICA")
+	private BigDecimal idAreaTematica;
 
-    @Column(name = "IND_ESTATUS")
-    private String indEstatus;
+	@Column(name = "IND_ESTATUS")
+	private String indEstatus;
 
-    @Column(name = "NG_CLASS")
-    private String ngClass;
+	@Column(name = "NG_CLASS")
+	private String ngClass;
 
-    @Column(name = "NG_IF")
-    private String ngIf;
+	@Column(name = "NG_IF")
+	private String ngIf;
 
-    @Column(name = "NG_SHOW")
-    private String ngShow;
+	@Column(name = "NG_SHOW")
+	private String ngShow;
 
-    @Column(name = "NG_STYLE")
-    private String ngStyle;
+	@Column(name = "NG_STYLE")
+	private String ngStyle;
 
-    private String ngrepeat;
+	private String ngrepeat;
 
-    private BigDecimal posicion;
+	private BigDecimal posicion;
 
-    private String tamanio;
+	private String tamanio;
 
-    @Column(name = "USUARIO_ALTA")
-    private BigDecimal usuarioAlta;
+	@Column(name = "USUARIO_ALTA")
+	private BigDecimal usuarioAlta;
 
-    @Column(name = "USUARIO_MODIFICACION")
-    private BigDecimal usuarioModificacion;
+	@Column(name = "USUARIO_MODIFICACION")
+	private BigDecimal usuarioModificacion;
 
-    // bi-directional many-to-one association to CampoWidget
-    @OneToMany(mappedBy = "widget", cascade = CascadeType.ALL)
-    private List<CampoWidget> campoWidgets = new ArrayList<>();
+	// bi-directional many-to-one association to CampoWidget
+	@OneToMany(mappedBy = "widget", cascade = CascadeType.ALL)
+	private List<CampoWidget> campoWidgets = new ArrayList<>();
 
-    // bi-directional many-to-one association to CampoWidgetEventoUi
-    @OneToMany(mappedBy = "widget")
-    private List<CampoWidgetEventoUi> campoWidgetEventoUis;
+	// bi-directional many-to-one association to CampoWidgetEventoUi
+	@OneToMany(mappedBy = "widget")
+	private List<CampoWidgetEventoUi> campoWidgetEventoUis;
 
-    // bi-directional many-to-one association to PantallaEventoUi
-    @OneToMany(mappedBy = "widget")
-    private List<PantallaEventoUi> pantallaEventoUis;
+	// bi-directional many-to-one association to PantallaEventoUi
+	@OneToMany(mappedBy = "widget")
+	private List<PantallaEventoUi> pantallaEventoUis;
 
-    // bi-directional many-to-one association to CatTipoWidget
-    @ManyToOne
-    @JoinColumn(name = "ID_TIPO_WIDGET")
-    private CatTipoWidget catTipoWidget;
+	// bi-directional many-to-one association to CatTipoWidget
+	@ManyToOne
+	@JoinColumn(name = "ID_TIPO_WIDGET")
+	private CatTipoWidget catTipoWidget;
 
-    // bi-directional many-to-one association to Widget
-//    @ManyToOne
-//    @JoinColumn(name = "WIDGET_PADRE")
-    @Transient
-    private Widget widget;
+	// bi-directional many-to-one association to Widget
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "WIDGET_PADRE")
+	private Widget padre;
 
-    // bi-directional many-to-one association to Widget
+	// bi-directional many-to-one association to Widget
+	@OneToMany(mappedBy = "padre")
+	private List<Widget> hijos;
+
+	// bi-directional many-to-one association to WidgetAccion
+	@OneToMany(mappedBy = "widget1")
+	private List<WidgetAccion> widgetAccions1;
+
+	// bi-directional many-to-one association to WidgetAccion
+	@OneToMany(mappedBy = "widget2")
+	private List<WidgetAccion> widgetAccions2;
+
+	// bi-directional many-to-one association to WidgetPantalla
 //    @OneToMany(mappedBy = "widget")
-    @Transient
-    private List<Widget> widgets;
-
-    // bi-directional many-to-one association to WidgetAccion
-    @OneToMany(mappedBy = "widget1")
-    private List<WidgetAccion> widgetAccions1;
-
-    // bi-directional many-to-one association to WidgetAccion
-    @OneToMany(mappedBy = "widget2")
-    private List<WidgetAccion> widgetAccions2;
-
-    // bi-directional many-to-one association to WidgetPantalla
-//    @OneToMany(mappedBy = "widget")
-    @JsonIgnore
-    @Transient
-    private List<WidgetPantalla> widgetPantallas;
+	@JsonIgnore
+	@Transient
+	private List<WidgetPantalla> widgetPantallas;
 
-    public Widget() {
-    }
-
-    public Long getIdWidget() {
-        return this.idWidget;
-    }
-
-    public void setIdWidget(Long idWidget) {
-        this.idWidget = idWidget;
-    }
-
-    public String getConfiguration() {
-        return this.configuration;
-    }
-
-    public void setConfiguration(String configuration) {
-        this.configuration = configuration;
-    }
-
-    public String getCveWidget() {
-        return this.cveWidget;
-    }
-
-    public void setCveWidget(String cveWidget) {
-        this.cveWidget = cveWidget;
-    }
-
-    public String getDescWidget() {
-        return this.descWidget;
-    }
-
-    public void setDescWidget(String descWidget) {
-        this.descWidget = descWidget;
-    }
-
-    public Timestamp getFechaAlta() {
-        return this.fechaAlta;
-    }
-
-    public void setFechaAlta(Timestamp fechaAlta) {
-        this.fechaAlta = fechaAlta;
-    }
-
-    public Timestamp getFechaModificacion() {
-        return this.fechaModificacion;
-    }
-
-    public void setFechaModificacion(Timestamp fechaModificacion) {
-        this.fechaModificacion = fechaModificacion;
-    }
-
-    public BigDecimal getIdAreaTematica() {
-        return this.idAreaTematica;
-    }
+	public Widget() {
+	}
+
+	public Long getIdWidget() {
+		return this.idWidget;
+	}
+
+	public void setIdWidget(Long idWidget) {
+		this.idWidget = idWidget;
+	}
+
+	public String getConfiguration() {
+		return this.configuration;
+	}
+
+	public void setConfiguration(String configuration) {
+		this.configuration = configuration;
+	}
+
+	public String getCveWidget() {
+		return this.cveWidget;
+	}
+
+	public void setCveWidget(String cveWidget) {
+		this.cveWidget = cveWidget;
+	}
+
+	public String getDescWidget() {
+		return this.descWidget;
+	}
+
+	public void setDescWidget(String descWidget) {
+		this.descWidget = descWidget;
+	}
+
+	public Timestamp getFechaAlta() {
+		return this.fechaAlta;
+	}
+
+	public void setFechaAlta(Timestamp fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+
+	public Timestamp getFechaModificacion() {
+		return this.fechaModificacion;
+	}
+
+	public void setFechaModificacion(Timestamp fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+
+	public BigDecimal getIdAreaTematica() {
+		return this.idAreaTematica;
+	}
 
-    public void setIdAreaTematica(BigDecimal idAreaTematica) {
-        this.idAreaTematica = idAreaTematica;
-    }
+	public void setIdAreaTematica(BigDecimal idAreaTematica) {
+		this.idAreaTematica = idAreaTematica;
+	}
 
-    public String getIndEstatus() {
-        return this.indEstatus;
-    }
+	public String getIndEstatus() {
+		return this.indEstatus;
+	}
 
-    public void setIndEstatus(String indEstatus) {
-        this.indEstatus = indEstatus;
-    }
+	public void setIndEstatus(String indEstatus) {
+		this.indEstatus = indEstatus;
+	}
 
-    public String getNgClass() {
-        return this.ngClass;
-    }
+	public String getNgClass() {
+		return this.ngClass;
+	}
 
-    public void setNgClass(String ngClass) {
-        this.ngClass = ngClass;
-    }
+	public void setNgClass(String ngClass) {
+		this.ngClass = ngClass;
+	}
 
-    public String getNgIf() {
-        return this.ngIf;
-    }
+	public String getNgIf() {
+		return this.ngIf;
+	}
 
-    public void setNgIf(String ngIf) {
-        this.ngIf = ngIf;
-    }
+	public void setNgIf(String ngIf) {
+		this.ngIf = ngIf;
+	}
 
-    public String getNgShow() {
-        return this.ngShow;
-    }
+	public String getNgShow() {
+		return this.ngShow;
+	}
 
-    public void setNgShow(String ngShow) {
-        this.ngShow = ngShow;
-    }
+	public void setNgShow(String ngShow) {
+		this.ngShow = ngShow;
+	}
 
-    public String getNgStyle() {
-        return this.ngStyle;
-    }
+	public String getNgStyle() {
+		return this.ngStyle;
+	}
 
-    public void setNgStyle(String ngStyle) {
-        this.ngStyle = ngStyle;
-    }
+	public void setNgStyle(String ngStyle) {
+		this.ngStyle = ngStyle;
+	}
 
-    public String getNgrepeat() {
-        return this.ngrepeat;
-    }
+	public String getNgrepeat() {
+		return this.ngrepeat;
+	}
 
-    public void setNgrepeat(String ngrepeat) {
-        this.ngrepeat = ngrepeat;
-    }
+	public void setNgrepeat(String ngrepeat) {
+		this.ngrepeat = ngrepeat;
+	}
 
-    public BigDecimal getPosicion() {
-        return this.posicion;
-    }
+	public BigDecimal getPosicion() {
+		return this.posicion;
+	}
 
-    public void setPosicion(BigDecimal posicion) {
-        this.posicion = posicion;
-    }
+	public void setPosicion(BigDecimal posicion) {
+		this.posicion = posicion;
+	}
 
-    public String getTamanio() {
-        return this.tamanio;
-    }
+	public String getTamanio() {
+		return this.tamanio;
+	}
 
-    public void setTamanio(String tamanio) {
-        this.tamanio = tamanio;
-    }
+	public void setTamanio(String tamanio) {
+		this.tamanio = tamanio;
+	}
 
-    public BigDecimal getUsuarioAlta() {
-        return this.usuarioAlta;
-    }
+	public BigDecimal getUsuarioAlta() {
+		return this.usuarioAlta;
+	}
 
-    public void setUsuarioAlta(BigDecimal usuarioAlta) {
-        this.usuarioAlta = usuarioAlta;
-    }
+	public void setUsuarioAlta(BigDecimal usuarioAlta) {
+		this.usuarioAlta = usuarioAlta;
+	}
 
-    public BigDecimal getUsuarioModificacion() {
-        return this.usuarioModificacion;
-    }
+	public BigDecimal getUsuarioModificacion() {
+		return this.usuarioModificacion;
+	}
 
-    public void setUsuarioModificacion(BigDecimal usuarioModificacion) {
-        this.usuarioModificacion = usuarioModificacion;
-    }
+	public void setUsuarioModificacion(BigDecimal usuarioModificacion) {
+		this.usuarioModificacion = usuarioModificacion;
+	}
 
-    public List<CampoWidget> getCampoWidgets() {
-        return this.campoWidgets;
-    }
+	public List<CampoWidget> getCampoWidgets() {
+		return this.campoWidgets;
+	}
 
-    public void setCampoWidgets(List<CampoWidget> campoWidgets) {
-        this.campoWidgets = campoWidgets;
-    }
+	public void setCampoWidgets(List<CampoWidget> campoWidgets) {
+		this.campoWidgets = campoWidgets;
+	}
 
-    public CampoWidget addCampoWidget(CampoWidget campoWidget) {
-        getCampoWidgets().add(campoWidget);
-        campoWidget.setWidget(this);
+	public CampoWidget addCampoWidget(CampoWidget campoWidget) {
+		getCampoWidgets().add(campoWidget);
+		campoWidget.setWidget(this);
 
-        return campoWidget;
-    }
+		return campoWidget;
+	}
 
-    public CampoWidget removeCampoWidget(CampoWidget campoWidget) {
-        getCampoWidgets().remove(campoWidget);
-        campoWidget.setWidget(null);
+	public CampoWidget removeCampoWidget(CampoWidget campoWidget) {
+		getCampoWidgets().remove(campoWidget);
+		campoWidget.setWidget(null);
 
-        return campoWidget;
-    }
+		return campoWidget;
+	}
 
-    public List<CampoWidgetEventoUi> getCampoWidgetEventoUis() {
-        return this.campoWidgetEventoUis;
-    }
+	public List<CampoWidgetEventoUi> getCampoWidgetEventoUis() {
+		return this.campoWidgetEventoUis;
+	}
 
-    public void setCampoWidgetEventoUis(List<CampoWidgetEventoUi> campoWidgetEventoUis) {
-        this.campoWidgetEventoUis = campoWidgetEventoUis;
-    }
+	public void setCampoWidgetEventoUis(List<CampoWidgetEventoUi> campoWidgetEventoUis) {
+		this.campoWidgetEventoUis = campoWidgetEventoUis;
+	}
 
-    public CampoWidgetEventoUi addCampoWidgetEventoUi(CampoWidgetEventoUi campoWidgetEventoUi) {
-        getCampoWidgetEventoUis().add(campoWidgetEventoUi);
-        campoWidgetEventoUi.setWidget(this);
+	public CampoWidgetEventoUi addCampoWidgetEventoUi(CampoWidgetEventoUi campoWidgetEventoUi) {
+		getCampoWidgetEventoUis().add(campoWidgetEventoUi);
+		campoWidgetEventoUi.setWidget(this);
 
-        return campoWidgetEventoUi;
-    }
+		return campoWidgetEventoUi;
+	}
 
-    public CampoWidgetEventoUi removeCampoWidgetEventoUi(CampoWidgetEventoUi campoWidgetEventoUi) {
-        getCampoWidgetEventoUis().remove(campoWidgetEventoUi);
-        campoWidgetEventoUi.setWidget(null);
+	public CampoWidgetEventoUi removeCampoWidgetEventoUi(CampoWidgetEventoUi campoWidgetEventoUi) {
+		getCampoWidgetEventoUis().remove(campoWidgetEventoUi);
+		campoWidgetEventoUi.setWidget(null);
 
-        return campoWidgetEventoUi;
-    }
+		return campoWidgetEventoUi;
+	}
 
-    public List<PantallaEventoUi> getPantallaEventoUis() {
-        return this.pantallaEventoUis;
-    }
+	public List<PantallaEventoUi> getPantallaEventoUis() {
+		return this.pantallaEventoUis;
+	}
 
-    public void setPantallaEventoUis(List<PantallaEventoUi> pantallaEventoUis) {
-        this.pantallaEventoUis = pantallaEventoUis;
-    }
+	public void setPantallaEventoUis(List<PantallaEventoUi> pantallaEventoUis) {
+		this.pantallaEventoUis = pantallaEventoUis;
+	}
 
-    public PantallaEventoUi addPantallaEventoUi(PantallaEventoUi pantallaEventoUi) {
-        getPantallaEventoUis().add(pantallaEventoUi);
-        pantallaEventoUi.setWidget(this);
+	public PantallaEventoUi addPantallaEventoUi(PantallaEventoUi pantallaEventoUi) {
+		getPantallaEventoUis().add(pantallaEventoUi);
+		pantallaEventoUi.setWidget(this);
 
-        return pantallaEventoUi;
-    }
+		return pantallaEventoUi;
+	}
 
-    public PantallaEventoUi removePantallaEventoUi(PantallaEventoUi pantallaEventoUi) {
-        getPantallaEventoUis().remove(pantallaEventoUi);
-        pantallaEventoUi.setWidget(null);
+	public PantallaEventoUi removePantallaEventoUi(PantallaEventoUi pantallaEventoUi) {
+		getPantallaEventoUis().remove(pantallaEventoUi);
+		pantallaEventoUi.setWidget(null);
 
-        return pantallaEventoUi;
-    }
+		return pantallaEventoUi;
+	}
 
-    public CatTipoWidget getCatTipoWidget() {
-        return this.catTipoWidget;
-    }
+	public CatTipoWidget getCatTipoWidget() {
+		return this.catTipoWidget;
+	}
 
-    public void setCatTipoWidget(CatTipoWidget catTipoWidget) {
-        this.catTipoWidget = catTipoWidget;
-    }
+	public void setCatTipoWidget(CatTipoWidget catTipoWidget) {
+		this.catTipoWidget = catTipoWidget;
+	}
 
-    public Widget getWidget() {
-        return this.widget;
-    }
+	public Widget getPadre() {
+		return this.padre;
+	}
 
-    public void setWidget(Widget widget) {
-        this.widget = widget;
-    }
+	public void setPadre(Widget padre) {
+		this.padre = padre;
+	}
 
-    public List<Widget> getWidgets() {
-        return this.widgets;
-    }
+	public List<Widget> getHijos() {
+		return this.hijos;
+	}
 
-    public void setWidgets(List<Widget> widgets) {
-        this.widgets = widgets;
-    }
+	public void sethijos(List<Widget> hijos) {
+		this.hijos = hijos;
+	}
 
-    public Widget addWidget(Widget widget) {
-        getWidgets().add(widget);
-        widget.setWidget(this);
+	public Widget addWidget(Widget widget) {
+		getHijos().add(widget);
+		widget.setPadre(this);
 
-        return widget;
-    }
+		return widget;
+	}
 
-    public Widget removeWidget(Widget widget) {
-        getWidgets().remove(widget);
-        widget.setWidget(null);
+	public Widget removeWidget(Widget widget) {
+		getHijos().remove(widget);
+		widget.setPadre(null);
 
-        return widget;
-    }
+		return widget;
+	}
 
-    public List<WidgetAccion> getWidgetAccions1() {
-        return this.widgetAccions1;
-    }
+	public List<WidgetAccion> getWidgetAccions1() {
+		return this.widgetAccions1;
+	}
 
-    public void setWidgetAccions1(List<WidgetAccion> widgetAccions1) {
-        this.widgetAccions1 = widgetAccions1;
-    }
+	public void setWidgetAccions1(List<WidgetAccion> widgetAccions1) {
+		this.widgetAccions1 = widgetAccions1;
+	}
 
-    public WidgetAccion addWidgetAccions1(WidgetAccion widgetAccions1) {
-        getWidgetAccions1().add(widgetAccions1);
-        widgetAccions1.setWidget1(this);
+	public WidgetAccion addWidgetAccions1(WidgetAccion widgetAccions1) {
+		getWidgetAccions1().add(widgetAccions1);
+		widgetAccions1.setWidget1(this);
 
-        return widgetAccions1;
-    }
+		return widgetAccions1;
+	}
 
-    public WidgetAccion removeWidgetAccions1(WidgetAccion widgetAccions1) {
-        getWidgetAccions1().remove(widgetAccions1);
-        widgetAccions1.setWidget1(null);
+	public WidgetAccion removeWidgetAccions1(WidgetAccion widgetAccions1) {
+		getWidgetAccions1().remove(widgetAccions1);
+		widgetAccions1.setWidget1(null);
 
-        return widgetAccions1;
-    }
+		return widgetAccions1;
+	}
 
-    public List<WidgetAccion> getWidgetAccions2() {
-        return this.widgetAccions2;
-    }
+	public List<WidgetAccion> getWidgetAccions2() {
+		return this.widgetAccions2;
+	}
 
-    public void setWidgetAccions2(List<WidgetAccion> widgetAccions2) {
-        this.widgetAccions2 = widgetAccions2;
-    }
+	public void setWidgetAccions2(List<WidgetAccion> widgetAccions2) {
+		this.widgetAccions2 = widgetAccions2;
+	}
 
-    public WidgetAccion addWidgetAccions2(WidgetAccion widgetAccions2) {
-        getWidgetAccions2().add(widgetAccions2);
-        widgetAccions2.setWidget2(this);
+	public WidgetAccion addWidgetAccions2(WidgetAccion widgetAccions2) {
+		getWidgetAccions2().add(widgetAccions2);
+		widgetAccions2.setWidget2(this);
 
-        return widgetAccions2;
-    }
+		return widgetAccions2;
+	}
 
-    public WidgetAccion removeWidgetAccions2(WidgetAccion widgetAccions2) {
-        getWidgetAccions2().remove(widgetAccions2);
-        widgetAccions2.setWidget2(null);
+	public WidgetAccion removeWidgetAccions2(WidgetAccion widgetAccions2) {
+		getWidgetAccions2().remove(widgetAccions2);
+		widgetAccions2.setWidget2(null);
 
-        return widgetAccions2;
-    }
+		return widgetAccions2;
+	}
 
-    public List<WidgetPantalla> getWidgetPantallas() {
-        return this.widgetPantallas;
-    }
+	public List<WidgetPantalla> getWidgetPantallas() {
+		return this.widgetPantallas;
+	}
 
-    public void setWidgetPantallas(List<WidgetPantalla> widgetPantallas) {
-        this.widgetPantallas = widgetPantallas;
-    }
+	public void setWidgetPantallas(List<WidgetPantalla> widgetPantallas) {
+		this.widgetPantallas = widgetPantallas;
+	}
 
-    public WidgetPantalla addWidgetPantalla(WidgetPantalla widgetPantalla) {
-        getWidgetPantallas().add(widgetPantalla);
-        widgetPantalla.setWidget(this);
+	public WidgetPantalla addWidgetPantalla(WidgetPantalla widgetPantalla) {
+		getWidgetPantallas().add(widgetPantalla);
+		widgetPantalla.setWidget(this);
 
-        return widgetPantalla;
-    }
+		return widgetPantalla;
+	}
 
-    public WidgetPantalla removeWidgetPantalla(WidgetPantalla widgetPantalla) {
-        getWidgetPantallas().remove(widgetPantalla);
-        widgetPantalla.setWidget(null);
+	public WidgetPantalla removeWidgetPantalla(WidgetPantalla widgetPantalla) {
+		getWidgetPantallas().remove(widgetPantalla);
+		widgetPantalla.setWidget(null);
 
-        return widgetPantalla;
-    }
+		return widgetPantalla;
+	}
 
-    @Override
-    public void accept(LegacyVisitor visitor) {
-        visitor.visit(this);
-    }
+	@Override
+	public void accept(LegacyVisitor visitor) {
+		visitor.visit(this);
+	}
 
-    @Override
-    public String toString() {
-        return "Widget [idWidget=" + idWidget + ", configuration=" + configuration + ", cveWidget=" + cveWidget
-                + ", descWidget=" + descWidget + ", fechaAlta=" + fechaAlta + ", fechaModificacion=" + fechaModificacion
-                + ", idAreaTematica=" + idAreaTematica + ", indEstatus=" + indEstatus + ", ngClass=" + ngClass
-                + ", ngIf=" + ngIf + ", ngShow=" + ngShow + ", ngStyle=" + ngStyle + ", ngrepeat=" + ngrepeat
-                + ", posicion=" + posicion + ", tamanio=" + tamanio + ", usuarioAlta=" + usuarioAlta
-                + ", usuarioModificacion=" + usuarioModificacion + ", campoWidgets=" + campoWidgets
-                + ", campoWidgetEventoUis=" + campoWidgetEventoUis + ", pantallaEventoUis=" + pantallaEventoUis
-                + ", catTipoWidget=" + catTipoWidget + ", widget=" + widget + ", widgets=" + widgets
-                + ", widgetAccions1=" + widgetAccions1 + ", widgetAccions2=" + widgetAccions2 + ", widgetPantallas="
-                + widgetPantallas + "]";
-    }
+	@Override
+	public String toString() {
+		return "Widget [idWidget=" + idWidget + ", configuration=" + configuration + ", cveWidget=" + cveWidget
+				+ ", descWidget=" + descWidget + ", fechaAlta=" + fechaAlta + ", fechaModificacion=" + fechaModificacion
+				+ ", idAreaTematica=" + idAreaTematica + ", indEstatus=" + indEstatus + ", ngClass=" + ngClass
+				+ ", ngIf=" + ngIf + ", ngShow=" + ngShow + ", ngStyle=" + ngStyle + ", ngrepeat=" + ngrepeat
+				+ ", posicion=" + posicion + ", tamanio=" + tamanio + ", usuarioAlta=" + usuarioAlta
+				+ ", usuarioModificacion=" + usuarioModificacion + ", campoWidgets=" + campoWidgets
+				+ ", campoWidgetEventoUis=" + campoWidgetEventoUis + ", pantallaEventoUis=" + pantallaEventoUis
+				+ ", catTipoWidget=" + catTipoWidget + ", widget=" + padre + ", widgets=" + hijos + ", widgetAccions1="
+				+ widgetAccions1 + ", widgetAccions2=" + widgetAccions2 + ", widgetPantallas=" + widgetPantallas + "]";
+	}
 
 }

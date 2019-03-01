@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,170 +27,170 @@ import mx.gob.conacyt.generadorpantallas.visitor.LegacyVisitor;
 @Entity
 @Table(name = "WIDGET_PANTALLA")
 public class WidgetPantalla implements Serializable, Element {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(name = "ID_WIDGET_PANTALLA")
-    private Long idWidgetPantalla;
+	@Id
+	@Column(name = "ID_WIDGET_PANTALLA")
+	private Long idWidgetPantalla;
 
-    @Column(name = "DESC_WIDGET_PANTALLA")
-    private String descWidgetPantalla;
+	@Column(name = "DESC_WIDGET_PANTALLA")
+	private String descWidgetPantalla;
 
-    @Column(name = "FECHA_ALTA")
-    private Timestamp fechaAlta;
+	@Column(name = "FECHA_ALTA")
+	private Timestamp fechaAlta;
 
-    @Column(name = "FECHA_MODIFICACION")
-    private Timestamp fechaModificacion;
+	@Column(name = "FECHA_MODIFICACION")
+	private Timestamp fechaModificacion;
 
-    @Column(name = "IND_ESTATUS")
-    private String indEstatus;
+	@Column(name = "IND_ESTATUS")
+	private String indEstatus;
 
-    private BigDecimal posicion;
+	private BigDecimal posicion;
 
-    @Column(name = "USUARIO_ALTA")
-    private BigDecimal usuarioAlta;
+	@Column(name = "USUARIO_ALTA")
+	private BigDecimal usuarioAlta;
 
-    @Column(name = "USUARIO_MODIFICACION")
-    private BigDecimal usuarioModificacion;
+	@Column(name = "USUARIO_MODIFICACION")
+	private BigDecimal usuarioModificacion;
 
-    // bi-directional many-to-one association to Pantalla
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "ID_PANTALLA")
-    private Pantalla pantalla;
+	// bi-directional many-to-one association to Pantalla
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "ID_PANTALLA")
+	private Pantalla pantalla;
 
-    // bi-directional many-to-one association to Widget
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ID_WIDGET")
-    private Widget widget;
+	// bi-directional many-to-one association to Widget
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID_WIDGET")
+	private Widget widget;
 
-    // bi-directional many-to-one association to WidgetPantalla
+	// bi-directional many-to-one association to WidgetPantalla
 //    @ManyToOne
 //    @JoinColumn(name = "WIGDET_PANTALLA_PADRE")
-    @Transient
-    private WidgetPantalla widgetPantalla;
+	@Transient
+	private WidgetPantalla widgetPantalla;
 
-    // bi-directional many-to-one association to WidgetPantalla
+	// bi-directional many-to-one association to WidgetPantalla
 //    @OneToMany(mappedBy = "widgetPantalla")
-    @Transient
-    private List<WidgetPantalla> widgetPantallas;
+	@Transient
+	private List<WidgetPantalla> widgetPantallas;
 
-    public WidgetPantalla() {
-    }
+	public WidgetPantalla() {
+	}
 
-    public Long getIdWidgetPantalla() {
-        return this.idWidgetPantalla;
-    }
+	public Long getIdWidgetPantalla() {
+		return this.idWidgetPantalla;
+	}
 
-    public void setIdWidgetPantalla(Long idWidgetPantalla) {
-        this.idWidgetPantalla = idWidgetPantalla;
-    }
+	public void setIdWidgetPantalla(Long idWidgetPantalla) {
+		this.idWidgetPantalla = idWidgetPantalla;
+	}
 
-    public String getDescWidgetPantalla() {
-        return this.descWidgetPantalla;
-    }
+	public String getDescWidgetPantalla() {
+		return this.descWidgetPantalla;
+	}
 
-    public void setDescWidgetPantalla(String descWidgetPantalla) {
-        this.descWidgetPantalla = descWidgetPantalla;
-    }
+	public void setDescWidgetPantalla(String descWidgetPantalla) {
+		this.descWidgetPantalla = descWidgetPantalla;
+	}
 
-    public Timestamp getFechaAlta() {
-        return this.fechaAlta;
-    }
+	public Timestamp getFechaAlta() {
+		return this.fechaAlta;
+	}
 
-    public void setFechaAlta(Timestamp fechaAlta) {
-        this.fechaAlta = fechaAlta;
-    }
+	public void setFechaAlta(Timestamp fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
 
-    public Timestamp getFechaModificacion() {
-        return this.fechaModificacion;
-    }
+	public Timestamp getFechaModificacion() {
+		return this.fechaModificacion;
+	}
 
-    public void setFechaModificacion(Timestamp fechaModificacion) {
-        this.fechaModificacion = fechaModificacion;
-    }
+	public void setFechaModificacion(Timestamp fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
 
-    public String getIndEstatus() {
-        return this.indEstatus;
-    }
+	public String getIndEstatus() {
+		return this.indEstatus;
+	}
 
-    public void setIndEstatus(String indEstatus) {
-        this.indEstatus = indEstatus;
-    }
+	public void setIndEstatus(String indEstatus) {
+		this.indEstatus = indEstatus;
+	}
 
-    public BigDecimal getPosicion() {
-        return this.posicion;
-    }
+	public BigDecimal getPosicion() {
+		return this.posicion;
+	}
 
-    public void setPosicion(BigDecimal posicion) {
-        this.posicion = posicion;
-    }
+	public void setPosicion(BigDecimal posicion) {
+		this.posicion = posicion;
+	}
 
-    public BigDecimal getUsuarioAlta() {
-        return this.usuarioAlta;
-    }
+	public BigDecimal getUsuarioAlta() {
+		return this.usuarioAlta;
+	}
 
-    public void setUsuarioAlta(BigDecimal usuarioAlta) {
-        this.usuarioAlta = usuarioAlta;
-    }
+	public void setUsuarioAlta(BigDecimal usuarioAlta) {
+		this.usuarioAlta = usuarioAlta;
+	}
 
-    public BigDecimal getUsuarioModificacion() {
-        return this.usuarioModificacion;
-    }
+	public BigDecimal getUsuarioModificacion() {
+		return this.usuarioModificacion;
+	}
 
-    public void setUsuarioModificacion(BigDecimal usuarioModificacion) {
-        this.usuarioModificacion = usuarioModificacion;
-    }
+	public void setUsuarioModificacion(BigDecimal usuarioModificacion) {
+		this.usuarioModificacion = usuarioModificacion;
+	}
 
-    public Pantalla getPantalla() {
-        return this.pantalla;
-    }
+	public Pantalla getPantalla() {
+		return this.pantalla;
+	}
 
-    public void setPantalla(Pantalla pantalla) {
-        this.pantalla = pantalla;
-    }
+	public void setPantalla(Pantalla pantalla) {
+		this.pantalla = pantalla;
+	}
 
-    public Widget getWidget() {
-        return this.widget;
-    }
+	public Widget getWidget() {
+		return this.widget;
+	}
 
-    public void setWidget(Widget widget) {
-        this.widget = widget;
-    }
+	public void setWidget(Widget widget) {
+		this.widget = widget;
+	}
 
-    public WidgetPantalla getWidgetPantalla() {
-        return this.widgetPantalla;
-    }
+	public WidgetPantalla getWidgetPantalla() {
+		return this.widgetPantalla;
+	}
 
-    public void setWidgetPantalla(WidgetPantalla widgetPantalla) {
-        this.widgetPantalla = widgetPantalla;
-    }
+	public void setWidgetPantalla(WidgetPantalla widgetPantalla) {
+		this.widgetPantalla = widgetPantalla;
+	}
 
-    public List<WidgetPantalla> getWidgetPantallas() {
-        return this.widgetPantallas;
-    }
+	public List<WidgetPantalla> getWidgetPantallas() {
+		return this.widgetPantallas;
+	}
 
-    public void setWidgetPantallas(List<WidgetPantalla> widgetPantallas) {
-        this.widgetPantallas = widgetPantallas;
-    }
+	public void setWidgetPantallas(List<WidgetPantalla> widgetPantallas) {
+		this.widgetPantallas = widgetPantallas;
+	}
 
-    public WidgetPantalla addWidgetPantalla(WidgetPantalla widgetPantalla) {
-        getWidgetPantallas().add(widgetPantalla);
-        widgetPantalla.setWidgetPantalla(this);
+	public WidgetPantalla addWidgetPantalla(WidgetPantalla widgetPantalla) {
+		getWidgetPantallas().add(widgetPantalla);
+		widgetPantalla.setWidgetPantalla(this);
 
-        return widgetPantalla;
-    }
+		return widgetPantalla;
+	}
 
-    public WidgetPantalla removeWidgetPantalla(WidgetPantalla widgetPantalla) {
-        getWidgetPantallas().remove(widgetPantalla);
-        widgetPantalla.setWidgetPantalla(null);
+	public WidgetPantalla removeWidgetPantalla(WidgetPantalla widgetPantalla) {
+		getWidgetPantallas().remove(widgetPantalla);
+		widgetPantalla.setWidgetPantalla(null);
 
-        return widgetPantalla;
-    }
+		return widgetPantalla;
+	}
 
-    @Override
-    public void accept(LegacyVisitor visitor) {
-        visitor.visit(this);
-    }
+	@Override
+	public void accept(LegacyVisitor visitor) {
+		visitor.visit(this);
+	}
 
 }

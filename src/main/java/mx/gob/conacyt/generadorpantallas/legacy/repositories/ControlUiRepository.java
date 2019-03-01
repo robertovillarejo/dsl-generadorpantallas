@@ -10,6 +10,6 @@ import mx.gob.conacyt.generadorpantallas.legacy.domain.CatControlUi;
 @Repository
 public interface ControlUiRepository extends JpaRepository<CatControlUi, Long> {
 
-    Optional<CatControlUi> findOneByCveControlUi(String cveControlUi);
+	Optional<CatControlUi> findOneByCveControlUi(String cveControlUi);
 
 }

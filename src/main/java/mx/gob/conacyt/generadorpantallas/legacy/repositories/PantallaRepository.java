@@ -9,7 +9,7 @@ import mx.gob.conacyt.generadorpantallas.legacy.domain.Pantalla;
 
 @Repository
 public interface PantallaRepository extends JpaRepository<Pantalla, Long> {
-    
-    public Optional<Pantalla> findOneByCvePantalla(String cvePantalla);
+
+	public Optional<Pantalla> findOneByCvePantalla(String cvePantalla);
 
 }
